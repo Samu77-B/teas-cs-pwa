@@ -2316,7 +2316,11 @@
             // Update basket icon count
             document.getElementById('basketCount').textContent = cartCount;
             
-            if (cartCount > 0) {
+            // Don't show cart summary if we're on the basket page
+            if (currentPage === 'basketPage') {
+                document.getElementById('cartSummary').style.display = 'none';
+                document.getElementById('basketCount').style.display = 'flex';
+            } else if (cartCount > 0) {
                 document.getElementById('cartSummary').classList.add('show');
                 document.getElementById('basketCount').style.display = 'flex';
             } else {
