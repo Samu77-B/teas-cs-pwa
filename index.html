@@ -1122,18 +1122,135 @@
             100% { opacity: 0; transform: translateY(-20px); }
         }
 
-        .brewing-steam ellipse {
-            animation: brewingSteam 2.5s ease-in-out infinite;
+        /* Modern Coffee Cup Animation */
+        .modern-coffee-cup {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin: 0 auto;
         }
 
-        .brewing-steam ellipse:nth-child(1) { animation-delay: 1s; }
-        .brewing-steam ellipse:nth-child(2) { animation-delay: 1.2s; }
-        .brewing-steam ellipse:nth-child(3) { animation-delay: 1.4s; }
+        .cup-modern {
+            position: relative;
+            width: 80px;
+            height: 60px;
+            margin: 0 auto;
+        }
 
-        @keyframes brewingSteam {
-            0%, 60% { opacity: 0; }
-            70% { opacity: 0.6; }
-            100% { opacity: 0; transform: translateY(-10px) scale(1.2); }
+        .cup-body-modern {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #8B4513 0%, #A0522D 50%, #8B4513 100%);
+            border-radius: 0 0 40px 40px;
+            border: 3px solid #654321;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cup-handle-modern {
+            position: absolute;
+            right: -15px;
+            top: 15px;
+            width: 20px;
+            height: 30px;
+            border: 3px solid #654321;
+            border-left: none;
+            border-radius: 0 15px 15px 0;
+        }
+
+        .liquid-modern {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 0;
+            background: linear-gradient(135deg, #6F4E37 0%, #8B4513 100%);
+            border-radius: 0 0 37px 37px;
+            animation: fillLiquid 3s ease-in-out infinite;
+        }
+
+        .bubble-modern {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            animation: floatBubble 2s ease-in-out infinite;
+        }
+
+        .bubble-1 {
+            width: 6px;
+            height: 6px;
+            left: 20px;
+            bottom: 20px;
+            animation-delay: 0s;
+        }
+
+        .bubble-2 {
+            width: 4px;
+            height: 4px;
+            left: 35px;
+            bottom: 25px;
+            animation-delay: 0.5s;
+        }
+
+        .bubble-3 {
+            width: 5px;
+            height: 5px;
+            left: 50px;
+            bottom: 18px;
+            animation-delay: 1s;
+        }
+
+        .steam-modern {
+            position: absolute;
+            width: 4px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 2px;
+            top: -10px;
+            animation: riseSteam 2.5s ease-in-out infinite;
+        }
+
+        .steam-1 {
+            left: 25px;
+            animation-delay: 0s;
+        }
+
+        .steam-2 {
+            left: 40px;
+            animation-delay: 0.8s;
+        }
+
+        .steam-3 {
+            left: 55px;
+            animation-delay: 1.6s;
+        }
+
+        @keyframes fillLiquid {
+            0% { height: 0; }
+            50% { height: 80%; }
+            100% { height: 0; }
+        }
+
+        @keyframes floatBubble {
+            0%, 100% { 
+                transform: translateY(0) scale(1);
+                opacity: 0.8;
+            }
+            50% { 
+                transform: translateY(-15px) scale(1.2);
+                opacity: 1;
+            }
+        }
+
+        @keyframes riseSteam {
+            0%, 100% { 
+                opacity: 0;
+                transform: translateY(0) scale(1);
+            }
+            50% { 
+                opacity: 0.8;
+                transform: translateY(-20px) scale(1.5);
+            }
         }
 
         /* Premium Animations */
@@ -1802,25 +1919,26 @@
                 <h2 class="section-title">Order Confirmed!</h2>
                 
                 <div class="drink-making-animation">
-                    <svg class="brewing-cup" viewBox="0 0 100 100">
-                        <!-- Cup -->
-                        <path d="M20 30 L20 80 Q20 90 30 90 L70 90 Q80 90 80 80 L80 30 Z" fill="#8B4513" stroke="#654321" stroke-width="2"/>
-                        <!-- Handle -->
-                        <path d="M80 40 Q90 40 90 50 Q90 60 80 60" fill="none" stroke="#654321" stroke-width="3"/>
-                        <!-- Liquid -->
-                        <rect class="filling-liquid" x="22" y="42" width="56" height="46" fill="#8B4513"/>
-                        <!-- Bubbles -->
-                        <circle class="bubble" cx="35" cy="70" r="2" fill="white" opacity="0.7"/>
-                        <circle class="bubble" cx="45" cy="65" r="1.5" fill="white" opacity="0.7"/>
-                        <circle class="bubble" cx="55" cy="68" r="1" fill="white" opacity="0.7"/>
-                        <circle class="bubble" cx="65" cy="72" r="1.5" fill="white" opacity="0.7"/>
-                        <!-- Steam -->
-                        <g class="brewing-steam">
-                            <ellipse cx="40" cy="25" rx="3" ry="8" fill="white" opacity="0.6"/>
-                            <ellipse cx="50" cy="20" rx="2" ry="6" fill="white" opacity="0.6"/>
-                            <ellipse cx="60" cy="25" rx="3" ry="8" fill="white" opacity="0.6"/>
-                        </g>
-                    </svg>
+                    <div class="modern-coffee-cup">
+                        <!-- Modern cup with handle -->
+                        <div class="cup-modern">
+                            <div class="cup-body-modern"></div>
+                            <div class="cup-handle-modern"></div>
+                        </div>
+                        
+                        <!-- Animated liquid fill -->
+                        <div class="liquid-modern"></div>
+                        
+                        <!-- Floating bubbles -->
+                        <div class="bubble-modern bubble-1"></div>
+                        <div class="bubble-modern bubble-2"></div>
+                        <div class="bubble-modern bubble-3"></div>
+                        
+                        <!-- Rising steam -->
+                        <div class="steam-modern steam-1"></div>
+                        <div class="steam-modern steam-2"></div>
+                        <div class="steam-modern steam-3"></div>
+                    </div>
                 </div>
 
                 <div style="text-align: center; margin: 20px 0;">
