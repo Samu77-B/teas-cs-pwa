@@ -10,9 +10,15 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Teas & C's">
+    <link rel="apple-touch-icon" href="Brand/Teasandcs Logo White.png">
     
     <!-- PWA Manifest -->
     <link rel="manifest" href="manifest.json">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- QR Scanner Library -->
     <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
@@ -25,7 +31,7 @@
         }
 
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Inter', 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
             background: white;
             color: #333;
             line-height: 1.6;
@@ -49,6 +55,72 @@
             position: sticky;
             top: 0;
             z-index: 100;
+            animation: slideDownFromTop 0.8s ease-out;
+        }
+
+        .minimal-header {
+            padding: 25px 20px;
+            z-index: 100;
+            min-height: 90px;
+        }
+
+        .minimal-header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .minimal-back-btn {
+            position: static;
+            background: #FF8C42;
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 200;
+        }
+
+        .minimal-back-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .minimal-home-btn {
+            position: static;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 200;
+        }
+
+        .minimal-home-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: scale(1.1);
+        }
+
+        .minimal-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: white;
+            flex-grow: 1;
+            text-align: center;
+            margin: 0; /* Remove all margins to ensure perfect centering */
+            line-height: 1.2;
         }
 
         .logo-container {
@@ -60,12 +132,14 @@
             height: auto;
             margin: 0 auto 10px;
             display: block;
+            animation: fadeInScale 1s ease-out;
         }
 
         .tagline {
             font-size: 16px;
-            font-weight: bold;
+            font-weight: 500;
             margin-bottom: 5px;
+            animation: fadeInUp 0.6s ease-out 0.3s both;
         }
 
         .chair-info {
@@ -74,8 +148,9 @@
             text-align: center;
             color: white;
             font-size: 18px;
-            font-weight: bold;
+            font-weight: 600;
             border-radius: 0 0 20px 20px;
+            animation: slideDownFromUnderHeader 0.8s ease-out 0.8s both;
         }
 
         .menu-section {
@@ -86,9 +161,10 @@
 
         .section-title {
             font-size: 24px;
-            font-weight: bold;
+            font-weight: 600;
             margin-bottom: 30px;
             color: #333;
+            animation: fadeInUp 0.8s ease-out;
         }
 
         .menu-grid {
@@ -101,11 +177,20 @@
         .menu-item {
             text-align: center;
             cursor: pointer;
-            transition: transform 0.3s ease;
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.6s ease-out both;
         }
 
+        .menu-item:nth-child(1) { animation-delay: 0.1s; }
+        .menu-item:nth-child(2) { animation-delay: 0.2s; }
+        .menu-item:nth-child(3) { animation-delay: 0.3s; }
+        .menu-item:nth-child(4) { animation-delay: 0.4s; }
+        .menu-item:nth-child(5) { animation-delay: 0.5s; }
+        .menu-item:nth-child(6) { animation-delay: 0.6s; }
+
         .menu-item:hover {
-            transform: scale(1.05);
+            transform: scale(1.05) translateY(-5px);
+            box-shadow: 0 10px 25px rgba(107, 122, 90, 0.2);
         }
 
         .item-icon {
@@ -119,6 +204,12 @@
             justify-content: center;
             position: relative;
             overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .item-icon:hover {
+            transform: rotate(5deg) scale(1.1);
+            box-shadow: 0 8px 20px rgba(107, 122, 90, 0.3);
         }
 
         .item-icon img {
@@ -128,10 +219,19 @@
             filter: brightness(0) invert(1);
         }
 
+        .item-icon svg {
+            width: 50px;
+            height: 50px;
+            color: white;
+            stroke: white;
+            fill: none;
+        }
+
         .item-name {
             font-size: 16px;
-            font-weight: bold;
+            font-weight: 500;
             color: #333;
+            line-height: 1.2;
         }
 
         .subsection {
@@ -140,6 +240,7 @@
 
         .subsection-title {
             font-size: 20px;
+            font-weight: 500;
             margin-bottom: 20px;
             color: #333;
         }
@@ -157,14 +258,26 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            transition: background-color 0.3s ease;
+            transition: all 0.3s ease;
+            animation: slideInLeft 0.5s ease-out both;
         }
+
+        .list-item:nth-child(1) { animation-delay: 0.1s; }
+        .list-item:nth-child(2) { animation-delay: 0.2s; }
+        .list-item:nth-child(3) { animation-delay: 0.3s; }
+        .list-item:nth-child(4) { animation-delay: 0.4s; }
+        .list-item:nth-child(5) { animation-delay: 0.5s; }
+        .list-item:nth-child(6) { animation-delay: 0.6s; }
+        .list-item:nth-child(7) { animation-delay: 0.7s; }
+        .list-item:nth-child(8) { animation-delay: 0.8s; }
 
         .list-item:hover {
             background-color: rgba(107, 122, 90, 0.1);
             margin: 0 -20px;
             padding-left: 20px;
             padding-right: 20px;
+            transform: translateX(10px);
+            box-shadow: 0 5px 15px rgba(107, 122, 90, 0.1);
         }
 
         .list-item-name {
@@ -174,8 +287,29 @@
 
         .list-item-price {
             font-size: 16px;
-            font-weight: bold;
+            font-weight: 600;
             color: #333;
+            text-align: right;
+        }
+
+        .price-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 4px;
+        }
+
+        .original-price {
+            font-size: 13px;
+            color: #999;
+            font-weight: 400;
+            text-decoration: line-through;
+        }
+
+        .discounted-price {
+            font-size: 14px;
+            font-weight: 600;
+            color: #FF8C42;
         }
 
         .back-btn {
@@ -194,6 +328,69 @@
             display: none;
             align-items: center;
             justify-content: center;
+        }
+
+        .basket-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .basket-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: scale(1.1);
+        }
+
+        .fixed-home-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .fixed-home-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: scale(1.1);
+        }
+
+        .basket-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #FF8C42;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeInScale 0.3s ease-out;
         }
 
         .cart-summary {
@@ -221,21 +418,193 @@
             margin-bottom: 10px;
         }
 
-        .checkout-btn {
+        .cart-summary .continue-shopping-btn {
+            width: 100%;
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+            padding: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 8px;
+        }
+
+        .cart-summary .continue-shopping-btn:hover {
+            background: white;
+            color: #6B7A5A;
+        }
+
+        .cart-summary .checkout-btn {
             width: 100%;
             background: white;
             color: #6B7A5A;
             border: none;
             padding: 12px;
             font-size: 16px;
-            font-weight: bold;
+            font-weight: 600;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .cart-summary .checkout-btn:hover {
+            background: #f0f0f0;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(107, 122, 90, 0.2);
+        }
+
+        .basket-items {
+            margin-bottom: 30px;
+        }
+
+        .basket-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            animation: slideInLeft 0.5s ease-out both;
+        }
+
+        .basket-item:nth-child(1) { animation-delay: 0.1s; }
+        .basket-item:nth-child(2) { animation-delay: 0.2s; }
+        .basket-item:nth-child(3) { animation-delay: 0.3s; }
+        .basket-item:nth-child(4) { animation-delay: 0.4s; }
+
+        .basket-item-info {
+            flex-grow: 1;
+        }
+
+        .basket-item-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 4px;
+        }
+
+        .basket-item-details {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 4px;
+        }
+
+        .basket-item-price {
+            font-size: 16px;
+            font-weight: 600;
+            color: #FF8C42;
+        }
+
+        .basket-item-remove {
+            background: none;
+            border: none;
+            color: #999;
+            font-size: 18px;
+            cursor: pointer;
+            padding: 5px;
+            margin-left: 10px;
+            transition: color 0.3s ease;
+        }
+
+        .basket-item-remove:hover {
+            color: #FF8C42;
+        }
+
+        .basket-summary {
+            border-top: 2px solid rgba(0,0,0,0.1);
+            padding-top: 20px;
+        }
+
+        .basket-total {
+            text-align: center;
+            font-size: 20px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .basket-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .basket-buttons .continue-shopping-btn {
+            background: transparent;
+            color: #6B7A5A;
+            border: 2px solid #6B7A5A;
+            padding: 12px 25px;
+            font-size: 16px;
             border-radius: 25px;
             cursor: pointer;
             transition: all 0.3s ease;
         }
 
-        .checkout-btn:hover {
-            background: #f0f0f0;
+        .basket-buttons .continue-shopping-btn:hover {
+            background: #6B7A5A;
+            color: white;
+        }
+
+        .basket-buttons .checkout-btn {
+            background: #FF8C42;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .basket-buttons .checkout-btn:hover {
+            background: #e67e22;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 140, 66, 0.3);
+        }
+
+        .order-message-section {
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .message-label {
+            display: block;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .order-message {
+            width: 100%;
+            min-height: 80px;
+            padding: 12px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            font-size: 14px;
+            font-family: 'Inter', sans-serif;
+            resize: vertical;
+            transition: all 0.3s ease;
+        }
+
+        .order-message:focus {
+            outline: none;
+            border-color: #FF8C42;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(255, 140, 66, 0.1);
+        }
+
+        .order-message::placeholder {
+            color: #666;
+            font-style: italic;
         }
 
         .modal {
@@ -244,63 +613,76 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
+            height: 100vh;
             background: rgba(0,0,0,0.5);
             z-index: 1000;
+            animation: fadeInScale 0.3s ease-out;
+        }
+
+        .modal.show {
+            display: block;
         }
 
         .modal-content {
-            position: absolute;
+            position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             background: white;
-            padding: 30px;
             border-radius: 15px;
             width: 90%;
             max-width: 350px;
+            max-height: 75vh;
+            overflow-y: auto;
             text-align: center;
             color: #333;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            z-index: 1001;
         }
 
         .modal h3 {
             color: #333;
-            margin-bottom: 20px;
-            font-size: 20px;
+            margin: 20px 20px 15px 20px;
+            font-size: 18px;
+            font-weight: 600;
         }
 
         .customize-section {
-            margin: 20px 0;
+            margin: 10px 20px;
             text-align: left;
         }
 
         .option-group {
-            margin-bottom: 20px;
+            margin-bottom: 12px;
         }
 
         .option-label {
-            font-weight: bold;
-            margin-bottom: 10px;
+            font-weight: 500;
+            margin-bottom: 8px;
             display: block;
             color: #333;
+            font-size: 14px;
         }
 
         .option-grid {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
-            gap: 10px;
-            margin-bottom: 15px;
+            gap: 6px;
+            margin-bottom: 12px;
         }
 
         .option-btn {
             background: #6B7A5A;
             color: white;
             border: 2px solid transparent;
-            padding: 8px 12px;
+            padding: 5px 8px;
             border-radius: 20px;
-            font-size: 14px;
+            font-size: 12px;
             cursor: pointer;
             transition: all 0.3s ease;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .option-btn.selected {
@@ -314,7 +696,7 @@
             align-items: center;
             justify-content: center;
             gap: 15px;
-            margin: 20px 0;
+            margin: 12px 0;
         }
 
         .qty-btn {
@@ -330,16 +712,16 @@
 
         .quantity {
             font-size: 18px;
-            font-weight: bold;
+            font-weight: 600;
             min-width: 30px;
             text-align: center;
             color: #333;
         }
 
         .price-display {
-            font-size: 20px;
-            font-weight: bold;
-            margin: 15px 0;
+            font-size: 18px;
+            font-weight: 600;
+            margin: 12px 0;
             color: #333;
         }
 
@@ -347,7 +729,7 @@
             display: flex;
             gap: 10px;
             justify-content: center;
-            margin-top: 20px;
+            margin: 12px 20px 20px 20px;
         }
 
         .add-to-cart-btn {
@@ -358,7 +740,14 @@
             font-size: 16px;
             border-radius: 25px;
             cursor: pointer;
-            font-weight: bold;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .add-to-cart-btn:hover {
+            background: #5a6a4a;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(107, 122, 90, 0.3);
         }
 
         .close-btn {
@@ -369,6 +758,40 @@
             font-size: 16px;
             border-radius: 25px;
             cursor: pointer;
+        }
+
+        .checkout-btn {
+            background: #FF8C42;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .checkout-btn:hover {
+            background: #e67e22;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 140, 66, 0.3);
+        }
+
+        .continue-shopping-btn {
+            background: transparent;
+            color: #6B7A5A;
+            border: 2px solid #6B7A5A;
+            padding: 12px 25px;
+            font-size: 16px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .continue-shopping-btn:hover {
+            background: #6B7A5A;
+            color: white;
         }
 
         .rating-section {
@@ -385,7 +808,7 @@
             font-size: 16px;
             border-radius: 25px;
             cursor: pointer;
-            font-weight: bold;
+            font-weight: 600;
             margin-top: 15px;
             width: 100%;
         }
@@ -405,11 +828,23 @@
             font-size: 30px;
             color: rgba(0,0,0,0.3);
             cursor: pointer;
-            transition: color 0.3s ease;
+            transition: all 0.3s ease;
+            animation: fadeInScale 0.5s ease-out both;
+        }
+
+        .star:nth-child(1) { animation-delay: 0.1s; }
+        .star:nth-child(2) { animation-delay: 0.2s; }
+        .star:nth-child(3) { animation-delay: 0.3s; }
+        .star:nth-child(4) { animation-delay: 0.4s; }
+        .star:nth-child(5) { animation-delay: 0.5s; }
+
+        .star:hover {
+            transform: scale(1.2);
         }
 
         .star.active {
             color: #ffd700;
+            animation: pulse 0.6s ease-out;
         }
 
         .submit-rating-btn {
@@ -421,7 +856,7 @@
             border-radius: 25px;
             cursor: pointer;
             margin-top: 15px;
-            font-weight: bold;
+            font-weight: 600;
         }
 
         .notification {
@@ -435,6 +870,7 @@
             border-radius: 25px;
             z-index: 500;
             display: none;
+            animation: bounce 0.6s ease-out;
         }
 
         .page {
@@ -454,6 +890,17 @@
             border-radius: 20px 20px 0 0;
         }
 
+        .copyright a {
+            color: #6B7A5A;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .copyright a:hover {
+            color: #FF8C42;
+        }
+
         .scan-qr-btn {
             background: #6B7A5A;
             color: white;
@@ -462,14 +909,17 @@
             font-size: 16px;
             border-radius: 25px;
             cursor: pointer;
-            font-weight: bold;
+            font-weight: 600;
             margin: 20px auto;
             display: block;
             transition: all 0.3s ease;
+            animation: fadeInUp 0.8s ease-out 0.7s both;
         }
 
         .scan-qr-btn:hover {
             background: #5a6a4a;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(107, 122, 90, 0.3);
         }
 
         .qr-scanner-modal {
@@ -501,6 +951,7 @@
             color: #333;
             margin-bottom: 20px;
             font-size: 20px;
+            font-weight: 600;
         }
 
         .qr-scanner-content p {
@@ -537,7 +988,7 @@
             font-size: 16px;
             border-radius: 25px;
             cursor: pointer;
-            font-weight: bold;
+            font-weight: 600;
         }
 
         .qr-cancel-btn {
@@ -548,6 +999,83 @@
             font-size: 16px;
             border-radius: 25px;
             cursor: pointer;
+        }
+
+        .camera-permissions {
+            text-align: center;
+            padding: 30px 20px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+
+        .camera-icon {
+            margin-bottom: 20px;
+        }
+
+        .camera-permissions h4 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .camera-permissions p {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .camera-permission-btn {
+            background: #6B7A5A;
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            font-size: 16px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: 0 auto 15px;
+            transition: all 0.3s ease;
+            min-width: 200px;
+        }
+
+        .camera-permission-btn:hover {
+            background: #5a6a4a;
+            transform: translateY(-2px);
+        }
+
+        .camera-alternative {
+            font-size: 14px;
+            color: #666;
+            margin-top: 15px;
+        }
+
+        .text-link {
+            background: none;
+            border: none;
+            color: #6B7A5A;
+            text-decoration: underline;
+            cursor: pointer;
+            font-weight: 500;
+            padding: 0;
+            font-size: 14px;
+        }
+
+        .text-link:hover {
+            color: #FF8C42;
+        }
+
+        #manualInput h4 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+            text-align: center;
         }
 
         .chair-number-display {
@@ -561,6 +1089,7 @@
             width: 150px;
             height: 150px;
             margin: 0 auto 20px;
+            animation: float 3s ease-in-out infinite;
         }
 
         .brewing-cup {
@@ -606,6 +1135,115 @@
             70% { opacity: 0.6; }
             100% { opacity: 0; transform: translateY(-10px) scale(1.2); }
         }
+
+        /* Premium Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideDownFromTop {
+            from {
+                opacity: 0;
+                transform: translateY(-100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideDownFromUnderHeader {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: -200px 0;
+            }
+            100% {
+                background-position: calc(200px + 100%) 0;
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 53%, 80%, 100% {
+                transform: translate3d(0,0,0);
+            }
+            40%, 43% {
+                transform: translate3d(0, -30px, 0);
+            }
+            70% {
+                transform: translate3d(0, -15px, 0);
+            }
+            90% {
+                transform: translate3d(0, -4px, 0);
+            }
+        }
     </style>
 </head>
 <body>
@@ -613,13 +1251,39 @@
         <!-- Back Button -->
         <button class="back-btn" id="backBtn" onclick="goBack()">←</button>
 
+        <!-- Shopping Basket Icon -->
+        <button class="basket-btn" id="basketBtn" onclick="showBasket()">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+                <line x1="3" y1="6" x2="21" y2="6"/>
+                <path d="M16 10a4 4 0 0 1-8 0"/>
+            </svg>
+            <span class="basket-count" id="basketCount">0</span>
+        </button>
+
         <!-- Header -->
-        <div class="header">
+        <div class="header" id="mainHeader">
             <div class="logo-container">
                 <img src="Brand/Teasandcs Logo White.png" alt="Teas & C's Logo" class="logo">
             </div>
             <div class="tagline">Brewing perfection next door</div>
         </div>
+
+        <!-- Minimal Header for Menu Pages -->
+        <div class="header minimal-header" id="minimalHeader" style="display: none;">
+            <div class="minimal-header-content">
+                <div class="minimal-title">Brewing perfection next door</div>
+                <button class="back-btn minimal-back-btn" onclick="goBack()">←</button>
+            </div>
+        </div>
+
+        <!-- Fixed Home Button -->
+        <button class="home-btn fixed-home-btn" id="fixedHomeBtn" onclick="goToMainMenu()" style="display: none;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                <polyline points="9,22 9,12 15,12 15,22"/>
+            </svg>
+        </button>
 
         <!-- Chair Info -->
         <div class="chair-info">
@@ -632,50 +1296,53 @@
                 <button type="button" class="scan-qr-btn" onclick="openQRScanner()">Scan Chair QR</button>
                 <h2 class="section-title">Drinks Menu</h2>
                 <div class="menu-grid">
-                    <div class="menu-item" onclick="showCategory('hot-drinks')">
-                        <div class="item-icon">
-                            <img src="images/Tea-Icon.png" alt="Hot Drink">
-                        </div>
-                        <div class="item-name">Hot Drink</div>
-                    </div>
+                                         <div class="menu-item" onclick="showCategory('hot-drinks')">
+                         <div class="item-icon">
+                             <img src="images/hot-drinks.png" alt="Hot Drinks">
+                         </div>
+                         <div class="item-name">Hot Drinks</div>
+                     </div>
 
-                    <div class="menu-item" onclick="showCategory('cold-drinks')">
-                        <div class="item-icon">
-                            <img src="images/Cold-Coffee-Icon.png" alt="Cold Drink">
-                        </div>
-                        <div class="item-name">Cold Drink</div>
-                    </div>
+                     <div class="menu-item" onclick="showCategory('cold-drinks')">
+                         <div class="item-icon">
+                             <img src="images/cold-drinks.png" alt="Cold Drinks">
+                         </div>
+                         <div class="item-name">Cold Drinks</div>
+                     </div>
 
-                    <div class="menu-item" onclick="showCategory('everyday-teas')">
-                        <div class="item-icon">
-                            <img src="images/Tea-Icon.png" alt="Everyday Teas">
-                        </div>
-                        <div class="item-name">Everyday<br>Teas</div>
-                    </div>
+                     <div class="menu-item" onclick="showCategory('everyday-teas')">
+                         <div class="item-icon">
+                             <img src="images/tea.png" alt="Loose Leaf Tea">
+                         </div>
+                         <div class="item-name">Loose Leaf<br>Tea</div>
+                     </div>
 
-                    <div class="menu-item" onclick="showCategory('matcha-teas')">
-                        <div class="item-icon">
-                            <img src="images/Macha-Cold-Icon.png" alt="Matcha Teas">
-                        </div>
-                        <div class="item-name">Matcha<br>Teas</div>
-                    </div>
+                     <div class="menu-item" onclick="showCategory('matcha-teas')">
+                         <div class="item-icon">
+                             <img src="images/macha.png" alt="Matcha">
+                         </div>
+                         <div class="item-name">Matcha</div>
+                     </div>
 
-                    <div class="menu-item" onclick="showCategory('coffees')">
-                        <div class="item-icon">
-                            <img src="images/Coffee-Icon.png" alt="Coffees">
-                        </div>
-                        <div class="item-name">Coffees</div>
-                    </div>
+                     <div class="menu-item" onclick="showCategory('coffees')">
+                         <div class="item-icon">
+                             <img src="images/hot-drinks.png" alt="Coffee">
+                         </div>
+                         <div class="item-name">Coffee</div>
+                     </div>
 
-                    <div class="menu-item" onclick="showCategory('specialties')">
-                        <div class="item-icon">
-                            <img src="images/Tea-Icon.png" alt="Specialised Teas">
-                        </div>
-                        <div class="item-name">Specialised<br>Teas</div>
-                    </div>
+                     <div class="menu-item" onclick="showCategory('specialties')">
+                         <div class="item-icon">
+                             <img src="images/Macha.png" alt="Specials">
+                         </div>
+                         <div class="item-name">Specials</div>
+                     </div>
                 </div>
             </div>
-            <div class="copyright">2025 Teas & Cs. All rights reserved.</div>
+            <div class="copyright">
+                2025 Teas & Cs. All rights reserved.<br>
+                Designed, built & maintained by <a href="https://paul-banning.com" target="_blank" rel="noopener noreferrer">Paul Banning</a>
+            </div>
         </div>
 
         <!-- Hot Drinks Page -->
@@ -683,19 +1350,53 @@
             <div class="menu-section">
                 <h2 class="section-title">Hot Drinks</h2>
                 <div class="item-list">
-                    <div class="list-item" onclick="openCustomizeModal('Hot Tea', 3.6, 5.0, 'tea')">
-                        <span class="list-item-name">Hot Tea</span>
-                        <span class="list-item-price">£3.60</span>
+                    <div class="list-item" onclick="openCustomizeModal('Breakfast Tea', 2.72, 3.84, 'tea')">
+                        <span class="list-item-name">Breakfast Tea</span>
+                        <div class="price-container">
+                            <span class="original-price">Normal price £3.40</span>
+                            <span class="discounted-price">Your price £2.72</span>
+                        </div>
                     </div>
-                    <div class="list-item" onclick="openCustomizeModal('Hot Coffee', 3.8, 5.2, 'coffee')">
-                        <span class="list-item-name">Hot Coffee</span>
-                        <span class="list-item-price">£3.80</span>
+                    <div class="list-item" onclick="openCustomizeModal('Earl Grey', 2.88, 4.0, 'tea')">
+                        <span class="list-item-name">Earl Grey</span>
+                        <div class="price-container">
+                            <span class="original-price">Normal price £3.60</span>
+                            <span class="discounted-price">Your price £2.88</span>
+                        </div>
                     </div>
-                    <div class="list-item" onclick="openCustomizeModal('Hot Chocolate', 4.0, 5.4, 'specialty')">
-                        <span class="list-item-name">Hot Chocolate</span>
-                        <span class="list-item-price">£4.00</span>
+                    <div class="list-item" onclick="openCustomizeModal('Flat White', 2.72, 3.84, 'coffee')">
+                        <span class="list-item-name">Flat White</span>
+                        <div class="price-container">
+                            <span class="original-price">Normal price £3.40</span>
+                            <span class="discounted-price">Your price £2.72</span>
+                        </div>
+                    </div>
+                    <div class="list-item" onclick="openCustomizeModal('Latte', 2.88, 4.0, 'coffee')">
+                        <span class="list-item-name">Latte</span>
+                        <div class="price-container">
+                            <span class="original-price">Normal price £3.60</span>
+                            <span class="discounted-price">Your price £2.88</span>
+                        </div>
+                    </div>
+                    <div class="list-item" onclick="openCustomizeModal('Cappuccino', 2.88, 4.0, 'coffee')">
+                        <span class="list-item-name">Cappuccino</span>
+                        <div class="price-container">
+                            <span class="original-price">Normal price £3.60</span>
+                            <span class="discounted-price">Your price £2.88</span>
+                        </div>
+                    </div>
+                    <div class="list-item" onclick="openCustomizeModal('Mork 50% Chocolate', 2.88, 4.0, 'specialty')">
+                        <span class="list-item-name">Mork 50% Chocolate</span>
+                        <div class="price-container">
+                            <span class="original-price">Normal price £3.60</span>
+                            <span class="discounted-price">Your price £2.88</span>
+                        </div>
                     </div>
                 </div>
+            </div>
+            <div class="copyright">
+                2025 Teas & Cs. All rights reserved.<br>
+                Designed, built & maintained by <a href="https://paul-banning.com" target="_blank" rel="noopener noreferrer">Paul Banning</a>
             </div>
         </div>
 
@@ -704,175 +1405,340 @@
             <div class="menu-section">
                 <h2 class="section-title">Cold Drinks</h2>
                 <div class="item-list">
-                    <div class="list-item" onclick="openCustomizeModal('Iced Tea', 4.2, 5.6, 'tea')">
-                        <span class="list-item-name">Iced Tea</span>
-                        <span class="list-item-price">£4.20</span>
+                    <div class="list-item" onclick="openCustomizeModal('Pistachio Latte', 3.36, 4.48, 'coffee')">
+                        <span class="list-item-name">Pistachio Latte</span>
+                        <div class="price-container">
+                            <span class="original-price">Normal price £4.20</span>
+                            <span class="discounted-price">Your price £3.36</span>
+                        </div>
                     </div>
-                    <div class="list-item" onclick="openCustomizeModal('Iced Coffee', 4.4, 5.8, 'coffee')">
-                        <span class="list-item-name">Iced Coffee</span>
-                        <span class="list-item-price">£4.40</span>
+                    <div class="list-item" onclick="openCustomizeModal('Strawberry Iced Chocolate', 3.52, 4.64, 'specialty')">
+                        <span class="list-item-name">Strawberry Iced Chocolate</span>
+                        <div class="price-container">
+                            <span class="original-price">Normal price £4.40</span>
+                            <span class="discounted-price">Your price £3.52</span>
+                        </div>
                     </div>
-                    <div class="list-item" onclick="openCustomizeModal('Cold Matcha', 4.6, 6.0, 'matcha')">
-                        <span class="list-item-name">Cold Matcha</span>
-                        <span class="list-item-price">£4.60</span>
+                    <div class="list-item" onclick="openCustomizeModal('Classic Matcha Latte', 3.36, 4.48, 'matcha')">
+                        <span class="list-item-name">Classic Matcha Latte</span>
+                        <div class="price-container">
+                            <span class="original-price">Normal price £4.20</span>
+                            <span class="discounted-price">Your price £3.36</span>
+                        </div>
+                    </div>
+                    <div class="list-item" onclick="openCustomizeModal('Sparkling Rose & Hibiscus', 2.56, 3.68, 'specialty')">
+                        <span class="list-item-name">Sparkling Rose & Hibiscus</span>
+                        <div class="price-container">
+                            <span class="original-price">Normal price £3.20</span>
+                            <span class="discounted-price">Your price £2.56</span>
+                        </div>
                     </div>
                 </div>
+            </div>
+            <div class="copyright">
+                2025 Teas & Cs. All rights reserved.<br>
+                Designed, built & maintained by <a href="https://paul-banning.com" target="_blank" rel="noopener noreferrer">Paul Banning</a>
             </div>
         </div>
 
         <!-- Everyday Teas Page -->
         <div class="page" id="everyday-teas">
             <div class="menu-section">
-                <h2 class="section-title">Everyday Teas</h2>
+                <h2 class="section-title">Loose Leaf Tea</h2>
                 <div class="item-list">
-                    <div class="list-item" onclick="openCustomizeModal('English Breakfast', 3.6, 5.0, 'tea')">
-                        <span class="list-item-name">English Breakfast</span>
-                        <span class="list-item-price">£3.60</span>
+                    <div class="list-item" onclick="openCustomizeModal('Milk Oolong', 3.2, 4.32, 'tea')">
+                        <span class="list-item-name">Milk Oolong</span>
+                        <div class="price-container">
+                            <span class="original-price">Normal price £4.00</span>
+                            <span class="discounted-price">Your price £3.20</span>
+                        </div>
                     </div>
-                    <div class="list-item" onclick="openCustomizeModal('English Breakfast Decaf', 3.6, 5.0, 'tea')">
-                        <span class="list-item-name">English Breakfast Decaf</span>
-                        <span class="list-item-price">£3.60</span>
+                    <div class="list-item" onclick="openCustomizeModal('Breakfast Tea', 2.72, 3.84, 'tea')">
+                        <span class="list-item-name">Breakfast Tea</span>
+                        <div class="price-container">
+                            <span class="original-price">Normal price £3.40</span>
+                            <span class="discounted-price">Your price £2.72</span>
+                        </div>
                     </div>
-                    <div class="list-item" onclick="openCustomizeModal('Earl Grey', 3.6, 5.0, 'tea')">
+                    <div class="list-item" onclick="openCustomizeModal('Earl Grey', 2.88, 4.0, 'tea')">
                         <span class="list-item-name">Earl Grey</span>
-                        <span class="list-item-price">£3.60</span>
+                        <div class="price-container">
+                            <span class="original-price">Normal price £3.60</span>
+                            <span class="discounted-price">Your price £2.88</span>
+                        </div>
                     </div>
-                    <div class="list-item" onclick="openCustomizeModal('Wild Mint', 3.6, 5.0, 'tea')">
+                    <div class="list-item" onclick="openCustomizeModal('Wild Mint', 2.88, 4.0, 'tea')">
                         <span class="list-item-name">Wild Mint</span>
-                        <span class="list-item-price">£3.60</span>
+                        <div class="price-container">
+                            <span class="original-price">Normal price £3.60</span>
+                            <span class="discounted-price">Your price £2.88</span>
+                        </div>
                     </div>
-                    <div class="list-item" onclick="openCustomizeModal('Bush Tea', 3.6, 5.0, 'tea')">
-                        <span class="list-item-name">Bush Tea</span>
-                        <span class="list-item-price">£3.60</span>
-                    </div>
-                    <div class="list-item" onclick="openCustomizeModal('Chamomile', 3.6, 5.0, 'tea')">
-                        <span class="list-item-name">Chamomile</span>
-                        <span class="list-item-price">£3.60</span>
-                    </div>
-                    <div class="list-item" onclick="openCustomizeModal('Berry Burst', 3.6, 5.0, 'tea')">
-                        <span class="list-item-name">Berry Burst</span>
-                        <span class="list-item-price">£3.60</span>
-                    </div>
-                    <div class="list-item" onclick="openCustomizeModal('Lemon & Ginger', 3.6, 5.0, 'tea')">
-                        <span class="list-item-name">Lemon & Ginger</span>
-                        <span class="list-item-price">£3.60</span>
+                    <div class="list-item" onclick="openCustomizeModal('Berry Tea', 2.88, 4.0, 'tea')">
+                        <span class="list-item-name">Berry Tea</span>
+                        <div class="price-container">
+                            <span class="original-price">Normal price £3.60</span>
+                            <span class="discounted-price">Your price £2.88</span>
+                        </div>
                     </div>
                 </div>
 
                 <div class="subsection">
                     <h3 class="subsection-title">Premium Teas</h3>
                     <div class="item-list">
-                        <div class="list-item" onclick="openCustomizeModal('Genmaicha Green Tea', 3.8, 5.2, 'tea')">
+                        <div class="list-item" onclick="openCustomizeModal('Genmaicha Green Tea', 3.04, 4.16, 'tea')">
                             <span class="list-item-name">Genmaicha Green Tea</span>
-                            <span class="list-item-price">£3.80</span>
+                            <div class="price-container">
+                                <span class="original-price">Normal price £3.80</span>
+                                <span class="discounted-price">Your price £3.04</span>
+                            </div>
                         </div>
-                        <div class="list-item" onclick="openCustomizeModal('Green Sencha Tea', 3.8, 5.2, 'tea')">
+                        <div class="list-item" onclick="openCustomizeModal('Green Sencha Tea', 3.04, 4.16, 'tea')">
                             <span class="list-item-name">Green Sencha Tea</span>
-                            <span class="list-item-price">£3.80</span>
+                            <div class="price-container">
+                                <span class="original-price">Normal price £3.80</span>
+                                <span class="discounted-price">Your price £3.04</span>
+                            </div>
                         </div>
-                        <div class="list-item" onclick="openCustomizeModal('Chocolate Noir Tea', 3.8, 5.2, 'tea')">
+                        <div class="list-item" onclick="openCustomizeModal('Chocolate Noir Tea', 3.04, 4.16, 'tea')">
                             <span class="list-item-name">Chocolate Noir Tea</span>
-                            <span class="list-item-price">£3.80</span>
+                            <div class="price-container">
+                                <span class="original-price">Normal price £3.80</span>
+                                <span class="discounted-price">Your price £3.04</span>
+                            </div>
                         </div>
-                        <div class="list-item" onclick="openCustomizeModal('Lychee & Rose Tea', 3.8, 5.2, 'tea')">
+                        <div class="list-item" onclick="openCustomizeModal('Lychee & Rose Tea', 3.04, 4.16, 'tea')">
                             <span class="list-item-name">Lychee & Rose Tea</span>
-                            <span class="list-item-price">£3.80</span>
+                            <div class="price-container">
+                                <span class="original-price">Normal price £3.80</span>
+                                <span class="discounted-price">Your price £3.04</span>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="subsection">
-                    <h3 class="subsection-title">Rare Teas</h3>
+                    <h3 class="subsection-title">Premium & Rare Teas</h3>
                     <div class="item-list">
-                        <div class="list-item" onclick="openCustomizeModal('Lychee & Rose Tea', 3.8, 5.2, 'tea')">
-                            <span class="list-item-name">Lychee & Rose Tea</span>
-                            <span class="list-item-price">£3.80</span>
+                        <div class="list-item" onclick="openCustomizeModal('Lapsang Souchong', 3.2, 4.32, 'tea')">
+                            <span class="list-item-name">Lapsang Souchong (smoked)</span>
+                            <div class="price-container">
+                                <span class="original-price">Normal price £4.00</span>
+                                <span class="discounted-price">Your price £3.20</span>
+                            </div>
+                        </div>
+                        <div class="list-item" onclick="openCustomizeModal('Jasmine Pearls', 3.2, 4.32, 'tea')">
+                            <span class="list-item-name">Jasmine Pearls</span>
+                            <div class="price-container">
+                                <span class="original-price">Normal price £4.00</span>
+                                <span class="discounted-price">Your price £3.20</span>
+                            </div>
+                        </div>
+                        <div class="list-item" onclick="openCustomizeModal('Silver Needle', 3.2, 4.32, 'tea')">
+                            <span class="list-item-name">Silver Needle</span>
+                            <div class="price-container">
+                                <span class="original-price">Normal price £4.00</span>
+                                <span class="discounted-price">Your price £3.20</span>
+                            </div>
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="copyright">
+                2025 Teas & Cs. All rights reserved.<br>
+                Designed, built & maintained by <a href="https://paul-banning.com" target="_blank" rel="noopener noreferrer">Paul Banning</a>
             </div>
         </div>
 
         <!-- Matcha Teas Page -->
         <div class="page" id="matcha-teas">
             <div class="menu-section">
-                <h2 class="section-title">Matcha Teas</h2>
+                <h2 class="section-title">Matcha</h2>
                 <div class="item-list">
-                    <div class="list-item" onclick="openCustomizeModal('Classic Matcha Latte', 4.2, 5.6, 'matcha')">
+                    <div class="list-item" onclick="openCustomizeModal('Matcha Thin Tea', 3.2, 4.32, 'matcha')">
+                        <span class="list-item-name">Matcha Thin Tea (Usucha)</span>
+                        <div class="price-container">
+                            <span class="original-price">Normal price £4.00</span>
+                            <span class="discounted-price">Your price £3.20</span>
+                        </div>
+                    </div>
+                    <div class="list-item" onclick="openCustomizeModal('Classic Matcha Latte', 3.36, 4.48, 'matcha')">
                         <span class="list-item-name">Classic Matcha Latte</span>
-                        <span class="list-item-price">£4.20</span>
-                    </div>
-                    <div class="list-item" onclick="openCustomizeModal('Vanilla Matcha Latte', 4.4, 5.8, 'matcha')">
-                        <span class="list-item-name">Vanilla Matcha Latte</span>
-                        <span class="list-item-price">£4.40</span>
-                    </div>
-                    <div class="list-item" onclick="openCustomizeModal('Honey Matcha Latte', 4.4, 5.8, 'matcha')">
-                        <span class="list-item-name">Honey Matcha Latte</span>
-                        <span class="list-item-price">£4.40</span>
-                    </div>
-                    <div class="list-item" onclick="openCustomizeModal('Coconut Matcha Latte', 4.4, 5.8, 'matcha')">
-                        <span class="list-item-name">Coconut Matcha Latte</span>
-                        <span class="list-item-price">£4.40</span>
+                        <div class="price-container">
+                            <span class="original-price">Normal price £4.20</span>
+                            <span class="discounted-price">Your price £3.36</span>
+                        </div>
                     </div>
                 </div>
+                
+                <div class="subsection">
+                    <h3 class="subsection-title">Matcha Specials</h3>
+                    <div class="item-list">
+                        <div class="list-item" onclick="openCustomizeModal('Rose & Pink Coconut Matcha', 4.16, 5.28, 'matcha')">
+                            <span class="list-item-name">Rose & Pink Coconut Matcha</span>
+                            <div class="price-container">
+                                <span class="original-price">Normal price £5.20</span>
+                                <span class="discounted-price">Your price £4.16</span>
+                            </div>
+                        </div>
+                        <div class="list-item" onclick="openCustomizeModal('Strawberry & Hibiscus Matcha', 4.0, 5.12, 'matcha')">
+                            <span class="list-item-name">Strawberry & Hibiscus Matcha</span>
+                            <div class="price-container">
+                                <span class="original-price">Normal price £5.00</span>
+                                <span class="discounted-price">Your price £4.00</span>
+                            </div>
+                        </div>
+                        <div class="list-item" onclick="openCustomizeModal('Mango & Jasmine Matcha', 4.0, 5.12, 'matcha')">
+                            <span class="list-item-name">Mango & Jasmine Matcha</span>
+                            <div class="price-container">
+                                <span class="original-price">Normal price £5.00</span>
+                                <span class="discounted-price">Your price £4.00</span>
+                            </div>
+                        </div>
+                        <div class="list-item" onclick="openCustomizeModal('Blueberry & Elderflower Matcha', 4.0, 5.12, 'matcha')">
+                            <span class="list-item-name">Blueberry & Elderflower Matcha</span>
+                            <div class="price-container">
+                                <span class="original-price">Normal price £5.00</span>
+                                <span class="discounted-price">Your price £4.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                2025 Teas & Cs. All rights reserved.<br>
+                Designed, built & maintained by <a href="https://paul-banning.com" target="_blank" rel="noopener noreferrer">Paul Banning</a>
             </div>
         </div>
 
         <!-- Coffees Page -->
         <div class="page" id="coffees">
             <div class="menu-section">
-                <h2 class="section-title">Coffees</h2>
+                <h2 class="section-title">Coffee</h2>
                 <div class="item-list">
-                    <div class="list-item" onclick="openCustomizeModal('Espresso', 2.8, 4.2, 'coffee')">
-                        <span class="list-item-name">Espresso</span>
-                        <span class="list-item-price">£2.80</span>
+                    <div class="list-item" onclick="openCustomizeModal('Espresso', 2.24, 3.36, 'coffee')">
+                        <span class="list-item-name">Espresso (2oz)</span>
+                        <div class="price-container">
+                            <span class="original-price">Normal price £2.80</span>
+                            <span class="discounted-price">Your price £2.24</span>
+                        </div>
                     </div>
-                    <div class="list-item" onclick="openCustomizeModal('Americano', 3.2, 4.6, 'coffee')">
+                    <div class="list-item" onclick="openCustomizeModal('Americano', 2.24, 3.36, 'coffee')">
                         <span class="list-item-name">Americano</span>
-                        <span class="list-item-price">£3.20</span>
+                        <div class="price-container">
+                            <span class="original-price">Normal price £2.80</span>
+                            <span class="discounted-price">Your price £2.24</span>
+                        </div>
                     </div>
-                    <div class="list-item" onclick="openCustomizeModal('Cappuccino', 3.6, 5.0, 'coffee')">
-                        <span class="list-item-name">Cappuccino</span>
-                        <span class="list-item-price">£3.60</span>
+                    <div class="list-item" onclick="openCustomizeModal('Long Black', 2.24, 3.36, 'coffee')">
+                        <span class="list-item-name">Long Black (6oz)</span>
+                        <div class="price-container">
+                            <span class="original-price">Normal price £2.80</span>
+                            <span class="discounted-price">Your price £2.24</span>
+                        </div>
                     </div>
-                    <div class="list-item" onclick="openCustomizeModal('Latte', 3.8, 5.2, 'coffee')">
+                    <div class="list-item" onclick="openCustomizeModal('Macchiato', 2.4, 3.52, 'coffee')">
+                        <span class="list-item-name">Macchiato (4oz)</span>
+                        <div class="price-container">
+                            <span class="original-price">Normal price £3.00</span>
+                            <span class="discounted-price">Your price £2.40</span>
+                        </div>
+                    </div>
+                    <div class="list-item" onclick="openCustomizeModal('Piccolo/Cortado', 2.4, 3.52, 'coffee')">
+                        <span class="list-item-name">Piccolo or Cortado (4oz)</span>
+                        <div class="price-container">
+                            <span class="original-price">Normal price £3.00</span>
+                            <span class="discounted-price">Your price £2.40</span>
+                        </div>
+                    </div>
+                    <div class="list-item" onclick="openCustomizeModal('Flat White', 2.72, 3.84, 'coffee')">
+                        <span class="list-item-name">Flat White (6oz)</span>
+                        <div class="price-container">
+                            <span class="original-price">Normal price £3.40</span>
+                            <span class="discounted-price">Your price £2.72</span>
+                        </div>
+                    </div>
+                    <div class="list-item" onclick="openCustomizeModal('Latte', 2.88, 4.0, 'coffee')">
                         <span class="list-item-name">Latte</span>
-                        <span class="list-item-price">£3.80</span>
+                        <div class="price-container">
+                            <span class="original-price">Normal price £3.60</span>
+                            <span class="discounted-price">Your price £2.88</span>
+                        </div>
                     </div>
-                    <div class="list-item" onclick="openCustomizeModal('Flat White', 3.8, 5.2, 'coffee')">
-                        <span class="list-item-name">Flat White</span>
-                        <span class="list-item-price">£3.80</span>
+                    <div class="list-item" onclick="openCustomizeModal('Cappuccino', 2.88, 4.0, 'coffee')">
+                        <span class="list-item-name">Cappuccino</span>
+                        <div class="price-container">
+                            <span class="original-price">Normal price £3.60</span>
+                            <span class="discounted-price">Your price £2.88</span>
+                        </div>
                     </div>
-                    <div class="list-item" onclick="openCustomizeModal('Mocha', 4.0, 5.4, 'coffee')">
-                        <span class="list-item-name">Mocha</span>
-                        <span class="list-item-price">£4.00</span>
+                    <div class="list-item" onclick="openCustomizeModal('Mocha', 3.2, 4.32, 'coffee')">
+                        <span class="list-item-name">Mocha w/ Mork 50% choc</span>
+                        <div class="price-container">
+                            <span class="original-price">Normal price £4.00</span>
+                            <span class="discounted-price">Your price £3.20</span>
+                        </div>
                     </div>
                 </div>
+            </div>
+            <div class="copyright">
+                2025 Teas & Cs. All rights reserved.<br>
+                Designed, built & maintained by <a href="https://paul-banning.com" target="_blank" rel="noopener noreferrer">Paul Banning</a>
             </div>
         </div>
 
         <!-- Specialties Page -->
         <div class="page" id="specialties">
             <div class="menu-section">
-                <h2 class="section-title">Specialised Teas</h2>
+                <h2 class="section-title">Specials</h2>
                 <div class="item-list">
-                    <div class="list-item" onclick="openCustomizeModal('Hot Chocolate', 3.8, 5.2, 'specialty')">
-                        <span class="list-item-name">Hot Chocolate</span>
-                        <span class="list-item-price">£3.80</span>
+                    <div class="list-item" onclick="openCustomizeModal('Mork 70% Chocolate', 3.04, 4.16, 'specialty')">
+                        <span class="list-item-name">Mork 70% Original Dark Chocolate</span>
+                        <div class="price-container">
+                            <span class="original-price">Normal price £3.80</span>
+                            <span class="discounted-price">Your price £3.04</span>
+                        </div>
                     </div>
-                    <div class="list-item" onclick="openCustomizeModal('Chai Latte', 4.0, 5.4, 'specialty')">
+                    <div class="list-item" onclick="openCustomizeModal('Mork 85% Chocolate', 3.2, 4.32, 'specialty')">
+                        <span class="list-item-name">Mork 85% Even Darker Chocolate</span>
+                        <div class="price-container">
+                            <span class="original-price">Normal price £4.00</span>
+                            <span class="discounted-price">Your price £3.20</span>
+                        </div>
+                    </div>
+                    <div class="list-item" onclick="openCustomizeModal('Chai Latte', 2.88, 4.0, 'specialty')">
                         <span class="list-item-name">Chai Latte</span>
-                        <span class="list-item-price">£4.00</span>
+                        <div class="price-container">
+                            <span class="original-price">Normal price £3.60</span>
+                            <span class="discounted-price">Your price £2.88</span>
+                        </div>
                     </div>
-                    <div class="list-item" onclick="openCustomizeModal('Golden Turmeric Latte', 4.2, 5.6, 'specialty')">
-                        <span class="list-item-name">Golden Turmeric Latte</span>
-                        <span class="list-item-price">£4.20</span>
+                    <div class="list-item" onclick="openCustomizeModal('Chocolate Chai Latte', 3.36, 4.48, 'specialty')">
+                        <span class="list-item-name">Chocolate Chai Latte</span>
+                        <div class="price-container">
+                            <span class="original-price">Normal price £4.20</span>
+                            <span class="discounted-price">Your price £3.36</span>
+                        </div>
                     </div>
-                    <div class="list-item" onclick="openCustomizeModal('Rose Latte', 4.2, 5.6, 'specialty')">
-                        <span class="list-item-name">Rose Latte</span>
-                        <span class="list-item-price">£4.20</span>
+                    <div class="list-item" onclick="openCustomizeModal('Dirty Chai Latte', 3.2, 4.32, 'specialty')">
+                        <span class="list-item-name">Dirty Chai Latte</span>
+                        <div class="price-container">
+                            <span class="original-price">Normal price £4.00</span>
+                            <span class="discounted-price">Your price £3.20</span>
+                        </div>
+                    </div>
+                    <div class="list-item" onclick="openCustomizeModal('Hojicha Salted Caramel', 3.36, 4.48, 'specialty')">
+                        <span class="list-item-name">Hojicha Salted Caramel Latte</span>
+                        <div class="price-container">
+                            <span class="original-price">Normal price £4.20</span>
+                            <span class="discounted-price">Your price £3.36</span>
+                        </div>
                     </div>
                 </div>
+            </div>
+            <div class="copyright">
+                2025 Teas & Cs. All rights reserved.<br>
+                Designed, built & maintained by <a href="https://paul-banning.com" target="_blank" rel="noopener noreferrer">Paul Banning</a>
             </div>
         </div>
 
@@ -923,7 +1789,7 @@
                     </div>
                 </div>
 
-                <div class="modal-buttons">
+                <div class="modal-buttons" id="addToCartButtons">
                     <button class="add-to-cart-btn" onclick="addToCart()">Add to Cart</button>
                     <button class="close-btn" onclick="closeModal()">Cancel</button>
                 </div>
@@ -962,6 +1828,11 @@
                     <p style="font-size: 14px; opacity: 0.8;">Please wait at your chair</p>
                 </div>
 
+                <div id="orderMessageDisplay" style="display: none; text-align: center; margin: 20px 0; padding: 15px; background: rgba(255, 255, 255, 0.1); border-radius: 10px;">
+                    <h4 style="margin-bottom: 10px; color: white;">Special Instructions:</h4>
+                    <p id="orderMessageText" style="font-size: 14px; color: white; font-style: italic; margin: 0;"></p>
+                </div>
+
                 <div class="rating-section">
                     <h3 style="text-align: center; margin-bottom: 15px;">Rate your experience</h3>
                     <div class="stars">
@@ -976,6 +1847,41 @@
 
                 <button class="back-home-btn" onclick="goToMainMenu()">Back to Menu</button>
             </div>
+            <div class="copyright">
+                2025 Teas & Cs. All rights reserved.<br>
+                Designed, built & maintained by <a href="https://paul-banning.com" target="_blank" rel="noopener noreferrer">Paul Banning</a>
+            </div>
+        </div>
+
+        <!-- Shopping Basket Page -->
+        <div class="page" id="basketPage">
+            <div class="menu-section">
+                <h2 class="section-title">Your Basket</h2>
+                
+                <div class="basket-items" id="basketItems">
+                    <!-- Basket items will be populated here -->
+                </div>
+
+                <div class="basket-summary">
+                    <div class="basket-total">
+                        <span>Total: £<span id="basketTotal">0.00</span></span>
+                    </div>
+                    
+                    <div class="order-message-section">
+                        <label for="orderMessage" class="message-label">Special Instructions (Optional):</label>
+                        <textarea id="orderMessage" class="order-message" placeholder="Add any special instructions, dietary requirements, or notes for your order..."></textarea>
+                    </div>
+                    
+                    <div class="basket-buttons">
+                        <button class="continue-shopping-btn" onclick="goToMainMenu()">Continue Shopping</button>
+                        <button class="checkout-btn" onclick="proceedToCheckout()">Proceed to Checkout</button>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                2025 Teas & Cs. All rights reserved.<br>
+                Designed, built & maintained by <a href="https://paul-banning.com" target="_blank" rel="noopener noreferrer">Paul Banning</a>
+            </div>
         </div>
 
         <!-- Cart Summary -->
@@ -984,6 +1890,7 @@
                 <span>Cart: <span id="cartCount">0</span> items</span>
                 <span>Total: £<span id="cartTotal">0.00</span></span>
             </div>
+            <button class="continue-shopping-btn" onclick="continueShopping()">Continue Shopping</button>
             <button class="checkout-btn" onclick="checkout()">Checkout</button>
         </div>
 
@@ -993,17 +1900,38 @@
                 <h3>Scan Chair QR Code</h3>
                 <p>Point your camera at the QR code on your table or enter the chair number manually</p>
                 
+                <!-- Camera Permissions Section -->
+                <div class="camera-permissions" id="cameraPermissions">
+                    <div class="camera-icon">
+                        <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#6B7A5A" stroke-width="2">
+                            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+                            <circle cx="12" cy="13" r="4"/>
+                        </svg>
+                    </div>
+                    <h4>Camera Access Required</h4>
+                    <p>To scan QR codes, we need permission to access your camera.</p>
+                    <button type="button" class="camera-permission-btn" onclick="requestCameraPermission()">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                            <circle cx="12" cy="12" r="3"/>
+                        </svg>
+                        Allow Camera Access
+                    </button>
+                    <p class="camera-alternative">Or <button type="button" class="text-link" onclick="showManualInput()">enter chair number manually</button></p>
+                </div>
+                
                 <!-- QR Scanner Container -->
-                <div id="qr-reader" style="width: 100%; margin: 20px 0;"></div>
+                <div id="qr-reader" style="width: 100%; margin: 20px 0; display: none;"></div>
                 
                 <!-- Manual Input Section -->
-                <div style="border-top: 1px solid #eee; padding-top: 20px; margin-top: 20px;">
-                    <p style="margin-bottom: 10px; color: #666;">Or enter chair number manually:</p>
+                <div id="manualInput" style="border-top: 1px solid #eee; padding-top: 20px; margin-top: 20px; display: none;">
+                    <h4>Enter Chair Number</h4>
+                    <p style="margin-bottom: 15px; color: #666;">Type the chair number from your table:</p>
                     <input type="text" class="qr-input" id="qrInput" placeholder="Enter chair number (1-8)" maxlength="1" pattern="[1-8]">
                 </div>
                 
                 <div class="qr-buttons">
-                    <button type="button" class="qr-submit-btn" onclick="submitChairNumber()">Set Chair</button>
+                    <button type="button" class="qr-submit-btn" id="qrSubmitBtn" onclick="submitChairNumber()" style="display: none;">Set Chair</button>
                     <button type="button" class="qr-cancel-btn" onclick="closeQRScanner()">Cancel</button>
                 </div>
             </div>
@@ -1027,11 +1955,45 @@
         let basePrice = 0;
         let largePrice = 0;
 
+        // Haptic feedback function
+        function triggerHapticFeedback() {
+            if ('vibrate' in navigator) {
+                navigator.vibrate(50); // 50ms vibration
+            }
+        }
+
         // Initialize the app
         document.addEventListener('DOMContentLoaded', function() {
             updateCartDisplay();
             generateChairNumber();
+            
+            // Hide basket count initially
+            document.getElementById('basketCount').style.display = 'none';
+            
+            // Add animation classes to elements
+            animateElements();
         });
+
+        // Function to add animation classes
+        function animateElements() {
+            // Animate menu items with staggered delay
+            const menuItems = document.querySelectorAll('.menu-item');
+            menuItems.forEach((item, index) => {
+                item.style.animationDelay = `${0.1 + (index * 0.1)}s`;
+            });
+            
+            // Animate list items with staggered delay
+            const listItems = document.querySelectorAll('.list-item');
+            listItems.forEach((item, index) => {
+                item.style.animationDelay = `${0.1 + (index * 0.1)}s`;
+            });
+            
+            // Animate stars with staggered delay
+            const stars = document.querySelectorAll('.star');
+            stars.forEach((star, index) => {
+                star.style.animationDelay = `${0.1 + (index * 0.1)}s`;
+            });
+        }
 
         // Generate random chair number
         function generateChairNumber() {
@@ -1044,26 +2006,24 @@
         let html5QrcodeScanner = null;
 
         function openQRScanner() {
+            triggerHapticFeedback();
             document.getElementById('qrScannerModal').style.display = 'block';
-            document.getElementById('qrInput').focus();
             
-            // Initialize QR scanner
-            if (!html5QrcodeScanner) {
-                html5QrcodeScanner = new Html5QrcodeScanner(
-                    "qr-reader",
-                    { 
-                        fps: 10, 
-                        qrbox: { width: 250, height: 250 },
-                        aspectRatio: 1.0
-                    },
-                    false
-                );
-                
-                html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+            // Show camera permissions section by default
+            document.getElementById('cameraPermissions').style.display = 'block';
+            document.getElementById('qr-reader').style.display = 'none';
+            document.getElementById('manualInput').style.display = 'none';
+            document.getElementById('qrSubmitBtn').style.display = 'none';
+            
+            // Ensure minimal header is visible if we're not on main menu
+            if (currentPage !== 'mainMenu') {
+                document.getElementById('mainHeader').style.display = 'none';
+                document.getElementById('minimalHeader').style.display = 'block';
             }
         }
 
         function closeQRScanner() {
+            triggerHapticFeedback();
             document.getElementById('qrScannerModal').style.display = 'none';
             document.getElementById('qrInput').value = '';
             
@@ -1072,6 +2032,61 @@
                 html5QrcodeScanner.clear();
                 html5QrcodeScanner = null;
             }
+            
+            // Reset to camera permissions view
+            document.getElementById('cameraPermissions').style.display = 'block';
+            document.getElementById('qr-reader').style.display = 'none';
+            document.getElementById('manualInput').style.display = 'none';
+            document.getElementById('qrSubmitBtn').style.display = 'none';
+        }
+
+        function requestCameraPermission() {
+            triggerHapticFeedback();
+            
+            // Check if camera is supported
+            if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+                showNotification('Camera not supported on this device');
+                return;
+            }
+            
+            // Request camera permission
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then(function(stream) {
+                    // Permission granted, initialize QR scanner
+                    document.getElementById('cameraPermissions').style.display = 'none';
+                    document.getElementById('qr-reader').style.display = 'block';
+                    
+                    if (!html5QrcodeScanner) {
+                        html5QrcodeScanner = new Html5QrcodeScanner(
+                            "qr-reader",
+                            { 
+                                fps: 10, 
+                                qrbox: { width: 250, height: 250 },
+                                aspectRatio: 1.0
+                            },
+                            false
+                        );
+                        
+                        html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+                    }
+                    
+                    // Stop the stream as the QR scanner will handle it
+                    stream.getTracks().forEach(track => track.stop());
+                })
+                .catch(function(err) {
+                    console.log('Camera permission denied:', err);
+                    showNotification('Camera access denied. Please use manual input.');
+                    showManualInput();
+                });
+        }
+
+        function showManualInput() {
+            triggerHapticFeedback();
+            document.getElementById('cameraPermissions').style.display = 'none';
+            document.getElementById('qr-reader').style.display = 'none';
+            document.getElementById('manualInput').style.display = 'block';
+            document.getElementById('qrSubmitBtn').style.display = 'block';
+            document.getElementById('qrInput').focus();
         }
 
         function onScanSuccess(decodedText, decodedResult) {
@@ -1101,6 +2116,7 @@
         }
 
         function submitChairNumber() {
+            triggerHapticFeedback();
             const input = document.getElementById('qrInput').value.trim();
             const chairNumber = parseInt(input);
             
@@ -1138,28 +2154,63 @@
 
         // Navigation functions
         function showCategory(category) {
+            triggerHapticFeedback();
             hideAllPages();
             document.getElementById(category).classList.add('active');
-            document.getElementById('backBtn').style.display = 'flex';
+            
+            // Switch to minimal header with back button only
+            document.getElementById('mainHeader').style.display = 'none';
+            document.getElementById('minimalHeader').style.display = 'block';
+            document.getElementById('backBtn').style.display = 'none'; // Hide the floating back button since we have integrated one
+            
+            // Show fixed home button
+            document.getElementById('fixedHomeBtn').style.display = 'flex';
+            
             currentPage = category;
         }
 
         function goBack() {
             if (currentPage !== 'mainMenu') {
+                triggerHapticFeedback();
                 hideAllPages();
                 document.getElementById('mainMenu').classList.add('active');
+                
+                // Switch back to main header
+                document.getElementById('mainHeader').style.display = 'block';
+                document.getElementById('minimalHeader').style.display = 'none';
                 document.getElementById('backBtn').style.display = 'none';
+                
+                // Hide fixed home button on main menu
+                document.getElementById('fixedHomeBtn').style.display = 'none';
+                
+                // Show cart summary if there are items in cart
+                if (cart.length > 0) {
+                    document.getElementById('cartSummary').style.display = 'block';
+                }
+                
                 currentPage = 'mainMenu';
             }
         }
 
         function goToMainMenu() {
+            triggerHapticFeedback();
             hideAllPages();
             document.getElementById('mainMenu').classList.add('active');
+            
+            // Switch back to main header
+            document.getElementById('mainHeader').style.display = 'block';
+            document.getElementById('minimalHeader').style.display = 'none';
             document.getElementById('backBtn').style.display = 'none';
+            
+            // Hide fixed home button on main menu
+            document.getElementById('fixedHomeBtn').style.display = 'none';
+            
+            // Show cart summary if there are items in cart
+            if (cart.length > 0) {
+                document.getElementById('cartSummary').style.display = 'block';
+            }
+            
             currentPage = 'mainMenu';
-            cart = [];
-            updateCartDisplay();
         }
 
         function hideAllPages() {
@@ -1169,6 +2220,7 @@
 
         // Modal functions
         function openCustomizeModal(name, regularPrice, largePrice, type) {
+            triggerHapticFeedback();
             currentItem = { name, type };
             basePrice = regularPrice;
             this.largePrice = largePrice;
@@ -1185,14 +2237,26 @@
             document.querySelectorAll('[data-milk="whole"]').forEach(btn => btn.classList.add('selected'));
             document.querySelectorAll('[data-sweetener="none"]').forEach(btn => btn.classList.add('selected'));
             
-            document.getElementById('customizeModal').style.display = 'block';
+            const modal = document.getElementById('customizeModal');
+            modal.style.display = 'block';
+            modal.classList.add('show');
+            
+            // Ensure minimal header is visible if we're not on main menu
+            if (currentPage !== 'mainMenu') {
+                document.getElementById('mainHeader').style.display = 'none';
+                document.getElementById('minimalHeader').style.display = 'block';
+            }
         }
 
         function closeModal() {
-            document.getElementById('customizeModal').style.display = 'none';
+            triggerHapticFeedback();
+            const modal = document.getElementById('customizeModal');
+            modal.style.display = 'none';
+            modal.classList.remove('show');
         }
 
         function changeQuantity(delta) {
+            triggerHapticFeedback();
             quantity = Math.max(1, quantity + delta);
             document.getElementById('quantity').textContent = quantity;
             updateModalPrice();
@@ -1223,6 +2287,7 @@
         }
 
         function addToCart() {
+            triggerHapticFeedback();
             const item = {
                 name: currentItem.name,
                 type: currentItem.type,
@@ -1236,6 +2301,7 @@
             cart.push(item);
             updateCartDisplay();
             closeModal();
+            
             showNotification('Added to cart!');
         }
 
@@ -1243,26 +2309,163 @@
             const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
             const cartTotal = cart.reduce((sum, item) => sum + item.price, 0);
             
+            // Update cart summary
             document.getElementById('cartCount').textContent = cartCount;
             document.getElementById('cartTotal').textContent = cartTotal.toFixed(2);
             
+            // Update basket icon count
+            document.getElementById('basketCount').textContent = cartCount;
+            
             if (cartCount > 0) {
                 document.getElementById('cartSummary').classList.add('show');
+                document.getElementById('basketCount').style.display = 'flex';
             } else {
                 document.getElementById('cartSummary').classList.remove('show');
+                document.getElementById('basketCount').style.display = 'none';
             }
         }
 
         function checkout() {
             if (cart.length === 0) return;
             
+            triggerHapticFeedback();
+            showBasket();
+        }
+
+        function proceedToCheckout() {
+            if (cart.length === 0) return;
+            
+            triggerHapticFeedback();
+            
+            // Get the order message
+            const orderMessage = document.getElementById('orderMessage').value.trim();
+            
+            // Store order details for confirmation
+            const orderDetails = {
+                items: [...cart],
+                message: orderMessage,
+                total: cart.reduce((sum, item) => sum + item.price, 0),
+                timestamp: new Date().toLocaleString()
+            };
+            
+            // Send order notification email
+            sendOrderEmail(orderDetails);
+            
+            // In a real app, you would send this to your backend
+            console.log('Order submitted:', orderDetails);
+            
+            // Show order message in confirmation if provided
+            const messageDisplay = document.getElementById('orderMessageDisplay');
+            const messageText = document.getElementById('orderMessageText');
+            
+            if (orderMessage) {
+                messageDisplay.style.display = 'block';
+                messageText.textContent = orderMessage;
+            } else {
+                messageDisplay.style.display = 'none';
+            }
+            
+            // Show order confirmation
             hideAllPages();
             document.getElementById('orderConfirmation').classList.add('active');
+            
+            // Switch to minimal header with back button only
+            document.getElementById('mainHeader').style.display = 'none';
+            document.getElementById('minimalHeader').style.display = 'block';
             document.getElementById('backBtn').style.display = 'none';
+            
+            // Show fixed home button
+            document.getElementById('fixedHomeBtn').style.display = 'flex';
+            
             currentPage = 'orderConfirmation';
+            
+            // Clear cart after checkout
+            cart = [];
+            updateCartDisplay();
+            
+            // Clear the message field
+            document.getElementById('orderMessage').value = '';
+        }
+
+        function continueShopping() {
+            triggerHapticFeedback();
+            // Hide the cart summary section and go to main menu
+            document.getElementById('cartSummary').style.display = 'none';
+            goToMainMenu();
+        }
+
+        function showBasket() {
+            triggerHapticFeedback();
+            hideAllPages();
+            document.getElementById('basketPage').classList.add('active');
+            
+            // Switch to minimal header with back button only
+            document.getElementById('mainHeader').style.display = 'none';
+            document.getElementById('minimalHeader').style.display = 'block';
+            document.getElementById('backBtn').style.display = 'none';
+            
+            // Show fixed home button
+            document.getElementById('fixedHomeBtn').style.display = 'flex';
+            
+            // Hide the cart summary when viewing basket
+            document.getElementById('cartSummary').style.display = 'none';
+            
+            currentPage = 'basketPage';
+            updateBasketDisplay();
+        }
+
+        function updateBasketDisplay() {
+            const basketItems = document.getElementById('basketItems');
+            const basketTotal = document.getElementById('basketTotal');
+            
+            basketItems.innerHTML = '';
+            
+            if (cart.length === 0) {
+                basketItems.innerHTML = '<p style="text-align: center; color: #666; margin: 20px 0;">Your basket is empty</p>';
+                basketTotal.textContent = '0.00';
+                return;
+            }
+            
+            const total = cart.reduce((sum, item) => sum + item.price, 0);
+            basketTotal.textContent = total.toFixed(2);
+            
+            cart.forEach((item, index) => {
+                const itemElement = document.createElement('div');
+                itemElement.className = 'basket-item';
+                
+                const details = [];
+                if (item.size !== 'regular') details.push(item.size);
+                if (item.milk !== 'whole') details.push(item.milk);
+                if (item.sweetener !== 'none') details.push(item.sweetener);
+                
+                itemElement.innerHTML = `
+                    <div class="basket-item-info">
+                        <div class="basket-item-name">${item.name} x${item.quantity}</div>
+                        <div class="basket-item-details">${details.length > 0 ? details.join(', ') : 'Standard'}</div>
+                    </div>
+                    <div class="basket-item-price">£${item.price.toFixed(2)}</div>
+                    <button class="basket-item-remove" onclick="removeFromBasket(${index})">×</button>
+                `;
+                
+                basketItems.appendChild(itemElement);
+            });
+        }
+
+        function removeFromBasket(index) {
+            triggerHapticFeedback();
+            cart.splice(index, 1);
+            updateCartDisplay();
+            updateBasketDisplay();
+            
+            if (cart.length === 0) {
+                showNotification('Basket cleared');
+            } else {
+                showNotification('Item removed');
+            }
         }
 
         function setRating(rating) {
+            triggerHapticFeedback();
             const stars = document.querySelectorAll('.star');
             stars.forEach((star, index) => {
                 if (index < rating) {
@@ -1274,6 +2477,7 @@
         }
 
         function submitRating() {
+            triggerHapticFeedback();
             const activeStars = document.querySelectorAll('.star.active').length;
             if (activeStars > 0) {
                 showNotification('Thank you for your rating!');
@@ -1281,6 +2485,54 @@
                     goToMainMenu();
                 }, 1500);
             }
+        }
+
+        function sendOrderEmail(orderDetails) {
+            const subject = 'New Order - Teas & Cs PWA';
+            const body = formatOrderEmail(orderDetails);
+            
+            // Create mailto link
+            const mailtoLink = `mailto:paul@paul-banning.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            
+            // Open default email client
+            window.open(mailtoLink);
+            
+            // Show notification
+            showNotification('Order email sent to paul@paul-banning.com');
+            
+            // Log order details to console for debugging
+            console.log('Order Details:', orderDetails);
+            console.log('Email Body:', body);
+        }
+
+        function formatOrderEmail(orderDetails) {
+            let emailBody = `NEW ORDER RECEIVED\n`;
+            emailBody += `========================\n\n`;
+            emailBody += `Order Time: ${orderDetails.timestamp}\n`;
+            emailBody += `Total: £${orderDetails.total.toFixed(2)}\n\n`;
+            
+            emailBody += `ITEMS ORDERED:\n`;
+            emailBody += `----------------\n`;
+            orderDetails.items.forEach((item, index) => {
+                emailBody += `${index + 1}. ${item.name}\n`;
+                emailBody += `   Size: ${item.size}\n`;
+                emailBody += `   Milk: ${item.milk}\n`;
+                emailBody += `   Sweetener: ${item.sweetener}\n`;
+                emailBody += `   Quantity: ${item.quantity}\n`;
+                emailBody += `   Price: £${item.price.toFixed(2)}\n\n`;
+            });
+            
+            if (orderDetails.message) {
+                emailBody += `SPECIAL INSTRUCTIONS:\n`;
+                emailBody += `---------------------\n`;
+                emailBody += `${orderDetails.message}\n\n`;
+            }
+            
+            emailBody += `========================\n`;
+            emailBody += `Order sent from Teas & Cs PWA\n`;
+            emailBody += `Generated automatically\n`;
+            
+            return emailBody;
         }
 
         function showNotification(message) {
@@ -1295,6 +2547,7 @@
         // Event listeners for option buttons
         document.addEventListener('click', function(e) {
             if (e.target.classList.contains('option-btn')) {
+                triggerHapticFeedback();
                 const group = e.target.parentElement;
                 const buttons = group.querySelectorAll('.option-btn');
                 buttons.forEach(btn => btn.classList.remove('selected'));
@@ -1344,3 +2597,4 @@
     </script>
 </body>
 </html>
+

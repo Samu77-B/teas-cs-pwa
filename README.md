@@ -1,63 +1,95 @@
-# Teas & C's PWA
+# Teas & Cs PWA - Ordering System
 
-A Progressive Web App for ordering drinks at Teas & C's coffee shop.
+A modern Progressive Web App (PWA) for Teas & Cs coffee shop, featuring a complete ordering system with offline functionality.
 
-## Features
+## 🌟 Features
 
-- **Offline Support**: Works without internet connection
-- **Installable**: Can be installed on mobile devices and desktops
-- **Responsive Design**: Optimized for mobile and tablet use
-- **Interactive Menu**: Browse and customize drinks
-- **Shopping Cart**: Add multiple items and checkout
-- **Order Confirmation**: Visual feedback with animations
-- **Rating System**: Rate your experience after ordering
+- **Progressive Web App** - Installable on mobile devices
+- **Offline Functionality** - Works without internet connection
+- **Responsive Design** - Optimized for all screen sizes
+- **Haptic Feedback** - Enhanced mobile experience
+- **QR Code Scanner** - Easy chair number input
+- **Shopping Cart** - Full e-commerce functionality
+- **Dynamic Pricing** - 20% discount display
+- **Modern UI** - Clean, professional design
 
-## How to Use
+## 📱 PWA Features
 
-1. **Open the App**: Navigate to `teas-cs-new-design.html` in your browser
-2. **Browse Menu**: Select from Everyday Teas, Matcha Teas, Coffees, or Specialties
-3. **Customize**: Choose size, milk type, and sweetener options
-4. **Add to Cart**: Select quantity and add items to your cart
-5. **Checkout**: Review your order and complete checkout
-6. **Rate**: Provide feedback on your experience
+- **Install Prompt** - Add to home screen
+- **Service Worker** - Offline caching
+- **Manifest** - App-like experience
+- **Push Notifications** - Ready for future implementation
 
-## Installation
+## 🛍️ Menu Categories
 
-### For Development
-1. Open `teas-cs-new-design.html` in a web browser
-2. The PWA will automatically register the service worker
+- **Hot Drinks** - Coffee, tea, hot chocolate
+- **Cold Drinks** - Iced beverages, smoothies
+- **Loose Leaf Tea** - Premium tea selection
+- **Matcha** - Traditional and flavored matcha
+- **Coffee** - Espresso-based drinks
+- **Specials** - Seasonal and specialty items
 
-### For Production
-1. Host the files on a web server with HTTPS
-2. The PWA will be installable on supported devices
-3. Users can add it to their home screen
+## 🎨 Design Features
 
-## Files Structure
+- **Modern Typography** - Inter font family
+- **Smooth Animations** - Premium feel
+- **Color Scheme** - Green (#6B7A5A) and Orange (#FF8C42)
+- **Haptic Feedback** - Mobile vibration on interactions
+- **Fixed Navigation** - Home and cart buttons
 
-- `teas-cs-new-design.html` - Main PWA application
-- `manifest.json` - PWA manifest configuration
-- `sw.js` - Service worker for offline functionality
-- `README.md` - This documentation
+## 🚀 Live Demo
 
-## PWA Features
+Visit the live demo: [https://your-username.github.io/teas-cs-pwa/](https://your-username.github.io/teas-cs-pwa/)
 
-- **Manifest**: Defines app appearance and behavior
-- **Service Worker**: Enables offline functionality and caching
-- **Responsive Design**: Works on all screen sizes
-- **Install Prompt**: Users can install the app on their device
+## 📁 Project Structure
 
-## Browser Support
+```
+teas-cs-pwa/
+├── index.html          # Main PWA file
+├── manifest.json       # PWA manifest
+├── sw.js              # Service worker
+├── _redirects         # Routing configuration
+├── Brand/             # Logo and branding
+├── images/            # Category icons
+└── README.md          # This file
+```
 
-- Chrome (recommended)
-- Firefox
-- Safari
-- Edge
+## 🛠️ Technologies Used
 
-## Development
+- **HTML5** - Semantic markup
+- **CSS3** - Modern styling with animations
+- **JavaScript** - Interactive functionality
+- **PWA Standards** - Service worker, manifest
+- **QR Scanner** - HTML5 QR code scanning
+- **Vibration API** - Haptic feedback
 
-To modify the app:
-1. Edit `teas-cs-new-design.html` for UI changes
-2. Update `manifest.json` for PWA settings
-3. Modify `sw.js` for caching behavior
+## 📱 Mobile Features
 
-The app uses vanilla JavaScript and CSS for maximum compatibility.
+- **Touch Optimized** - Large touch targets
+- **Haptic Feedback** - Vibration on interactions
+- **Camera Access** - QR code scanning
+- **Offline Support** - Works without internet
+- **Install Prompt** - Add to home screen
+
+## 🎯 Client Demo Features
+
+- **Professional Design** - Clean, modern interface
+- **Full Functionality** - Complete ordering system
+- **Mobile Responsive** - Works on all devices
+- **Fast Loading** - Optimized performance
+- **Easy Navigation** - Intuitive user experience
+
+## 🔧 Setup Instructions
+
+1. Clone this repository
+2. Open `index.html` in a web browser
+3. For PWA features, serve via HTTPS or localhost
+4. Test on mobile device for full experience
+
+## 📞 Contact
+
+Designed, built & maintained by [Paul Banning](https://paul-banning.com)
+
+---
+
+**Teas & Cs PWA** - Brewing perfection next door ☕
