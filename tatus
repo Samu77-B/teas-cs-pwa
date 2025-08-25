@@ -1,0 +1,5 @@
+[33ma862b77[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m Force refresh: Update modern coffee animation and ensure all features are live
+[33m454a848[m Added modern coffee cup animation - simple and clean design
+[33ma9294f4[m Fixed cart summary visibility - now properly hidden on basket page
+[33md842e11[m Fixed Matcha icon path - corrected case sensitivity
+[33mde7ba1a[m Auto-update: 23/08/2025  9:24:13.08
