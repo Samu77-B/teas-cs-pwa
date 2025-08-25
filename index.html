@@ -2529,19 +2529,20 @@
             // Get customer email if provided
             const customerEmail = document.getElementById('customerEmail').value.trim();
             
-            // Prepare data for both templates
+            // Prepare data for both templates - using common variable names
             const templateData = {
                 order_time: orderDetails.timestamp,
-                order_total: orderDetails.total.toFixed(2),
-                order_items: formatOrderItems(orderDetails.items),
-                special_instructions: orderDetails.message || '',
-                chair_number: 'Chair 1',
-                // Alternative variable names in case template uses different ones
                 order_date: orderDetails.timestamp,
+                order_total: orderDetails.total.toFixed(2),
                 total: orderDetails.total.toFixed(2),
+                order_items: formatOrderItems(orderDetails.items),
                 items: formatOrderItems(orderDetails.items),
+                special_instructions: orderDetails.message || '',
                 message: orderDetails.message || '',
-                to_email: 'paul@paul-banning.com'
+                chair_number: 'Chair 1',
+                to_name: 'Paul',
+                to_email: 'paul@paul-banning.com',
+                from_name: 'Teas & Cs PWA'
             };
             
             // Send cafe notification email
@@ -2555,12 +2556,9 @@
                     showNotification('Order sent to cafe successfully!');
                 })
                 .catch(function(error) {
-                    console.error('Cafe email failed - Full error:', error);
-                    console.error('Error status:', error.status);
-                    console.error('Error text:', error.text);
-                    showNotification(`Email failed: ${error.text || error.message}`);
-                    // Fallback to clipboard
-                    copyOrderToClipboard(formatOrderEmail(orderDetails));
+                    console.error('EmailJS failed, using WhatsApp fallback:', error);
+                    // Fallback to WhatsApp
+                    sendOrderToWhatsApp(orderDetails);
                 });
             
             // Send customer confirmation email if email provided
@@ -2596,6 +2594,15 @@
    Sweetener: ${item.sweetener}
    Price: £${item.price.toFixed(2)}`;
             }).join('\n\n');
+        }
+
+        function sendOrderToWhatsApp(orderDetails) {
+            const message = formatOrderEmail(orderDetails);
+            const whatsappNumber = '447123456789'; // Replace with your WhatsApp number
+            const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+            
+            window.open(whatsappUrl, '_blank');
+            showNotification('Order sent via WhatsApp!');
         }
 
         function copyOrderToClipboard(text) {
