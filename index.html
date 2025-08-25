@@ -2594,11 +2594,19 @@
                 });
             
             // Send customer confirmation email if email provided
+            console.log('Customer email input value:', customerEmail);
+            console.log('Customer email validation:', customerEmail && customerEmail.includes('@'));
+            console.log('Customer template ID:', CUSTOMER_TEMPLATE_ID);
+            
             if (customerEmail && customerEmail.includes('@')) {
                 const customerData = {
                     ...templateData,
-                    customer_email: customerEmail
+                    customer_email: customerEmail,
+                    to_email: customerEmail,
+                    to_name: 'Valued Customer'
                 };
+                
+                console.log('Sending customer confirmation with data:', customerData);
                 
                 emailjs.send(EMAILJS_SERVICE_ID, CUSTOMER_TEMPLATE_ID, customerData)
                     .then(function(response) {
@@ -2606,9 +2614,13 @@
                         showNotification(`Confirmation sent to ${customerEmail}`);
                     })
                     .catch(function(error) {
-                        console.error('Customer email failed:', error);
-                        showNotification('Cafe notified, customer email failed');
+                        console.error('Customer email failed - Full details:', error);
+                        console.error('Customer email error status:', error.status);
+                        console.error('Customer email error text:', error.text);
+                        showNotification(`Customer email failed: ${error.text || error.message}`);
                     });
+            } else {
+                console.log('Customer email not provided or invalid');
             }
             
             // Store order locally for backup
