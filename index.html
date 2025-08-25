@@ -2543,7 +2543,7 @@
                 items: formatOrderItems(orderDetails.items),
                 special_instructions: orderDetails.message || '',
                 message: orderDetails.message || '',
-                chair_number: 'Chair 1',
+                chair_number: 'Chair ' + document.getElementById('chairNumber').textContent,
                 to_name: 'Paul',
                 to_email: 'paul@paul-banning.com',
                 from_name: 'Teas & Cs PWA'
