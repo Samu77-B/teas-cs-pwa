@@ -2107,7 +2107,11 @@
             document.getElementById('qr-reader').style.display = 'none';
             document.getElementById('manualInput').style.display = 'block';
             document.getElementById('qrSubmitBtn').style.display = 'block';
-            document.getElementById('qrInput').focus();
+            
+            // Clear any previous input
+            const qrInput = document.getElementById('qrInput');
+            qrInput.value = '';
+            qrInput.focus();
         }
 
         function onScanSuccess(decodedText, decodedResult) {
@@ -2141,7 +2145,10 @@
             const input = document.getElementById('qrInput').value.trim();
             const chairNumber = parseInt(input);
             
+            console.log('Manual chair input:', input, 'Parsed number:', chairNumber);
+            
             if (chairNumber >= 1 && chairNumber <= 8) {
+                console.log('Setting chair number:', chairNumber, 'Chair name:', getChairName(chairNumber));
                 setChairNumber(chairNumber);
                 closeQRScanner();
                 showNotification(`Chair ${getChairName(chairNumber)} selected!`);
@@ -2161,13 +2168,26 @@
             return chairNames[chairNumber - 1];
         }
 
-        // Handle Enter key in QR input
+        // Handle Enter key in QR input and show/hide submit button
         document.addEventListener('DOMContentLoaded', function() {
             const qrInput = document.getElementById('qrInput');
-            if (qrInput) {
+            const qrSubmitBtn = document.getElementById('qrSubmitBtn');
+            
+            if (qrInput && qrSubmitBtn) {
                 qrInput.addEventListener('keypress', function(e) {
                     if (e.key === 'Enter') {
                         submitChairNumber();
+                    }
+                });
+                
+                // Show/hide submit button based on input
+                qrInput.addEventListener('input', function(e) {
+                    const value = e.target.value.trim();
+                    const chairNumber = parseInt(value);
+                    if (chairNumber >= 1 && chairNumber <= 8) {
+                        qrSubmitBtn.style.display = 'block';
+                    } else {
+                        qrSubmitBtn.style.display = 'none';
                     }
                 });
             }
