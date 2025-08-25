@@ -1958,7 +1958,11 @@
         // EmailJS Configuration - Official format from documentation
         console.log('Initializing EmailJS with key: 0-zOlPcY__7KuMFMa');
         emailjs.init({
-            publicKey: "0-zOlPcY__7KuMFMa"
+            publicKey: "0-zOlPcY__7KuMFMa",
+            limitRate: {
+                id: 'app',
+                throttle: 10000
+            }
         });
         const EMAILJS_SERVICE_ID = "service_ob58ovs";
         const CAFE_TEMPLATE_ID = "template_j08h25k";
@@ -2546,6 +2550,8 @@
             };
             
             // Send cafe notification email
+            console.log('EmailJS object:', emailjs);
+            console.log('EmailJS send function:', typeof emailjs.send);
             console.log('Sending cafe email with data:', templateData);
             console.log('Service ID:', EMAILJS_SERVICE_ID);
             console.log('Template ID:', CAFE_TEMPLATE_ID);
