@@ -2532,18 +2532,30 @@
                 order_total: orderDetails.total.toFixed(2),
                 order_items: formatOrderItems(orderDetails.items),
                 special_instructions: orderDetails.message || '',
-                chair_number: 'Chair 1' // You can update this if you have chair detection
+                chair_number: 'Chair 1',
+                // Alternative variable names in case template uses different ones
+                order_date: orderDetails.timestamp,
+                total: orderDetails.total.toFixed(2),
+                items: formatOrderItems(orderDetails.items),
+                message: orderDetails.message || '',
+                to_email: 'paul@paul-banning.com'
             };
             
             // Send cafe notification email
+            console.log('Sending cafe email with data:', templateData);
+            console.log('Service ID:', EMAILJS_SERVICE_ID);
+            console.log('Template ID:', CAFE_TEMPLATE_ID);
+            
             emailjs.send(EMAILJS_SERVICE_ID, CAFE_TEMPLATE_ID, templateData)
                 .then(function(response) {
                     console.log('Cafe notification sent successfully:', response);
                     showNotification('Order sent to cafe successfully!');
                 })
                 .catch(function(error) {
-                    console.error('Cafe email failed:', error);
-                    showNotification('Email failed, order saved locally');
+                    console.error('Cafe email failed - Full error:', error);
+                    console.error('Error status:', error.status);
+                    console.error('Error text:', error.text);
+                    showNotification(`Email failed: ${error.text || error.message}`);
                     // Fallback to clipboard
                     copyOrderToClipboard(formatOrderEmail(orderDetails));
                 });
