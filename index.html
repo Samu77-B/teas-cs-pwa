@@ -1955,10 +1955,8 @@
         let cart = [];
         let currentItem = null;
         
-        // EmailJS Configuration - Updated for v4
-        emailjs.init({
-            publicKey: "0-zOlPcY__7KuMFMa"
-        });
+        // EmailJS Configuration - Try older format
+        emailjs.init("0-zOlPcY__7KuMFMa");
         const EMAILJS_SERVICE_ID = "service_ob58ovs";
         const CAFE_TEMPLATE_ID = "template_j08h25k";
         const CUSTOMER_TEMPLATE_ID = "template_ha8jne4";
