@@ -23,6 +23,9 @@
     <!-- QR Scanner Library -->
     <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
     
+    <!-- EmailJS Library -->
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    
     <style>
         * {
             margin: 0;
@@ -581,6 +584,27 @@
             font-size: 14px;
             font-weight: 600;
             margin-bottom: 8px;
+        }
+
+        .customer-email {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid rgba(255, 140, 66, 0.3);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.95);
+            color: #333;
+            font-size: 14px;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(255, 140, 66, 0.1);
+        }
+
+        .customer-email:focus {
+            outline: none;
+            border-color: #FF8C42;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(255, 140, 66, 0.1);
+            transform: scale(1.02);
         }
 
         .order-message {
@@ -1837,6 +1861,16 @@
                     </div>
                     
                     <div class="order-message-section">
+                        <label for="customerEmail" class="message-label">
+                            <span style="color: #FF8C42;">📧</span> Your Email (Optional):
+                        </label>
+                        <input type="email" id="customerEmail" class="customer-email" placeholder="your@email.com">
+                        <div style="font-size: 12px; color: #666; margin-top: 5px; text-align: center;">
+                            💡 Get order confirmation and receipt emailed to you
+                        </div>
+                    </div>
+                    
+                    <div class="order-message-section">
                         <label for="orderMessage" class="message-label">
                             <span style="color: #FF8C42;">📝</span> Special Instructions (Optional):
                         </label>
@@ -1920,6 +1954,12 @@
         let currentPage = 'mainMenu';
         let cart = [];
         let currentItem = null;
+        
+        // EmailJS Configuration
+        emailjs.init("0-zOlPcY__7KuMFMa");
+        const EMAILJS_SERVICE_ID = "service_ob58ovs";
+        const CAFE_TEMPLATE_ID = "template_j08h25k";
+        const CUSTOMER_TEMPLATE_ID = "template_ha8jne4";
         let selectedOptions = {
             size: 'regular',
             milk: 'whole',
@@ -2483,37 +2523,64 @@
         }
 
         function sendOrderEmail(orderDetails) {
-            const subject = 'New Order - Teas & Cs PWA';
-            const body = formatOrderEmail(orderDetails);
+            // Get customer email if provided
+            const customerEmail = document.getElementById('customerEmail').value.trim();
             
-            // Try multiple email methods for better reliability
-            try {
-                // Method 1: Create mailto link
-                const mailtoLink = `mailto:paul@paul-banning.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            // Prepare data for both templates
+            const templateData = {
+                order_time: orderDetails.timestamp,
+                order_total: orderDetails.total.toFixed(2),
+                order_items: formatOrderItems(orderDetails.items),
+                special_instructions: orderDetails.message || '',
+                chair_number: 'Chair 1' // You can update this if you have chair detection
+            };
+            
+            // Send cafe notification email
+            emailjs.send(EMAILJS_SERVICE_ID, CAFE_TEMPLATE_ID, templateData)
+                .then(function(response) {
+                    console.log('Cafe notification sent successfully:', response);
+                    showNotification('Order sent to cafe successfully!');
+                })
+                .catch(function(error) {
+                    console.error('Cafe email failed:', error);
+                    showNotification('Email failed, order saved locally');
+                    // Fallback to clipboard
+                    copyOrderToClipboard(formatOrderEmail(orderDetails));
+                });
+            
+            // Send customer confirmation email if email provided
+            if (customerEmail && customerEmail.includes('@')) {
+                const customerData = {
+                    ...templateData,
+                    customer_email: customerEmail
+                };
                 
-                // Method 2: Try to open email client
-                const emailWindow = window.open(mailtoLink);
-                
-                // Method 3: Fallback - copy to clipboard
-                if (!emailWindow || emailWindow.closed) {
-                    copyOrderToClipboard(body);
-                    showNotification('Order copied to clipboard. Please email to paul@paul-banning.com');
-                } else {
-                    showNotification('Order email opened in your email client');
-                }
-                
-                // Method 4: Store order locally for backup
-                storeOrderLocally(orderDetails);
-                
-            } catch (error) {
-                console.error('Email error:', error);
-                copyOrderToClipboard(body);
-                showNotification('Order copied to clipboard. Please email to paul@paul-banning.com');
+                emailjs.send(EMAILJS_SERVICE_ID, CUSTOMER_TEMPLATE_ID, customerData)
+                    .then(function(response) {
+                        console.log('Customer confirmation sent successfully:', response);
+                        showNotification(`Confirmation sent to ${customerEmail}`);
+                    })
+                    .catch(function(error) {
+                        console.error('Customer email failed:', error);
+                        showNotification('Cafe notified, customer email failed');
+                    });
             }
+            
+            // Store order locally for backup
+            storeOrderLocally(orderDetails);
             
             // Log order details to console for debugging
             console.log('Order Details:', orderDetails);
-            console.log('Email Body:', body);
+        }
+
+        function formatOrderItems(items) {
+            return items.map((item, index) => {
+                return `${index + 1}. ${item.name} x${item.quantity}
+   Size: ${item.size}
+   Milk: ${item.milk}
+   Sweetener: ${item.sweetener}
+   Price: £${item.price.toFixed(2)}`;
+            }).join('\n\n');
         }
 
         function copyOrderToClipboard(text) {
