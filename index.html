@@ -23,8 +23,8 @@
     <!-- QR Scanner Library -->
     <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
     
-    <!-- EmailJS Library - Official Current CDN -->
-    <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <!-- EmailJS Library - Specific Working Version -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3.11.0/dist/email.min.js"></script>
     
     <style>
         * {
@@ -1955,9 +1955,11 @@
         let cart = [];
         let currentItem = null;
         
-        // EmailJS Configuration - Exact copy from user
+        // EmailJS Configuration - Version 3.11.0 compatible
         console.log('Initializing EmailJS with key: 0-zOlPcY__7KuMFMa');
-        emailjs.init("0-zOlPcY__7KuMFMa");
+        emailjs.init({
+            publicKey: "0-zOlPcY__7KuMFMa"
+        });
         const EMAILJS_SERVICE_ID = "service_ob58ovs";
         const CAFE_TEMPLATE_ID = "template_j08h25k";
         const CUSTOMER_TEMPLATE_ID = "template_ha8jne4";
