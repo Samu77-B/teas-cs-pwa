@@ -51,7 +51,9 @@
         }
 
         .header {
-            background: #6B7A5A;
+            background: linear-gradient(135deg, rgba(107, 122, 90, 0.8), rgba(107, 122, 90, 0.6));
+            backdrop-filter: blur(calc(20px + var(--blur-intensity, 0px)));
+            -webkit-backdrop-filter: blur(calc(20px + var(--blur-intensity, 0px)));
             color: white;
             padding: 30px 20px;
             text-align: center;
@@ -60,6 +62,55 @@
             z-index: 100;
             animation: slideDownFromTop 0.8s ease-out;
             transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
+                rgba(255, 255, 255, 0.1) 0%, 
+                rgba(255, 255, 255, 0.05) 30%, 
+                transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .header:hover::before {
+            opacity: 1;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg at var(--mouse-x, 50%) var(--mouse-y, 50%), 
+                transparent 0deg, 
+                rgba(255, 255, 255, 0.1) 60deg, 
+                transparent 120deg, 
+                rgba(255, 255, 255, 0.05) 180deg, 
+                transparent 240deg, 
+                rgba(255, 255, 255, 0.1) 300deg, 
+                transparent 360deg);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            animation: liquidRotate 4s linear infinite;
+        }
+
+        @keyframes liquidRotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         .header.scrolled {
@@ -80,12 +131,25 @@
             padding: 25px 20px;
             z-index: 100;
             min-height: 90px;
+            background: linear-gradient(135deg, rgba(107, 122, 90, 0.8), rgba(107, 122, 90, 0.6));
+            backdrop-filter: blur(calc(20px + var(--blur-intensity, 0px)));
+            -webkit-backdrop-filter: blur(calc(20px + var(--blur-intensity, 0px)));
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
         }
 
         .minimal-header-content {
             display: flex;
             align-items: center;
             justify-content: space-between;
+            position: relative;
+            z-index: 2;
+        }
+
+        .logo-container, .tagline {
+            position: relative;
+            z-index: 2;
         }
 
         .minimal-back-btn {
@@ -961,25 +1025,6 @@
             display: block;
         }
 
-        .copyright {
-            text-align: center;
-            padding: 20px;
-            font-size: 12px;
-            color: rgba(0,0,0,0.7);
-            background: #f5f5f5;
-            border-radius: 20px 20px 0 0;
-        }
-
-        .copyright a {
-            color: #6B7A5A;
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        .copyright a:hover {
-            color: #FF8C42;
-        }
 
         .scan-qr-btn {
             background: #6B7A5A;
@@ -1386,10 +1431,8 @@
                      </div>
                 </div>
             </div>
-            <div class="copyright">
-                2025 Teas & Cs. All rights reserved.<br>
-                Designed, built & maintained by <a href="https://paradigmstudio.net/" target="_blank" rel="noopener noreferrer">Paradigm Studio</a>
-            </div>
+            <!-- Footer Component -->
+            <div id="footer-placeholder"></div>
         </div>
 
         <!-- Hot Drinks Page --> 
@@ -1441,10 +1484,8 @@
                     </div>
                 </div>
             </div>
-            <div class="copyright">
-                2025 Teas & Cs. All rights reserved.<br>
-                Designed, built & maintained by <a href="https://paul-banning.com" target="_blank" rel="noopener noreferrer">Paul Banning</a>
-            </div>
+            <!-- Footer Component -->
+            <div class="footer-placeholder"></div>
         </div>
 
         <!-- Cold Drinks Page -->
@@ -1482,10 +1523,8 @@
                     </div>
                 </div>
             </div>
-            <div class="copyright">
-                2025 Teas & Cs. All rights reserved.<br>
-                Designed, built & maintained by <a href="https://paul-banning.com" target="_blank" rel="noopener noreferrer">Paul Banning</a>
-            </div>
+            <!-- Footer Component -->
+            <div class="footer-placeholder"></div>
         </div>
 
         <!-- Everyday Teas Page -->
@@ -1591,10 +1630,8 @@
                     </div>
                 </div>
             </div>
-            <div class="copyright">
-                2025 Teas & Cs. All rights reserved.<br>
-                Designed, built & maintained by <a href="https://paul-banning.com" target="_blank" rel="noopener noreferrer">Paul Banning</a>
-            </div>
+            <!-- Footer Component -->
+            <div class="footer-placeholder"></div>
         </div>
 
         <!-- Matcha Teas Page -->
@@ -1652,10 +1689,8 @@
                     </div>
                 </div>
             </div>
-            <div class="copyright">
-                2025 Teas & Cs. All rights reserved.<br>
-                Designed, built & maintained by <a href="https://paul-banning.com" target="_blank" rel="noopener noreferrer">Paul Banning</a>
-            </div>
+            <!-- Footer Component -->
+            <div class="footer-placeholder"></div>
         </div>
 
         <!-- Coffees Page -->
@@ -1728,10 +1763,8 @@
                     </div>
                 </div>
             </div>
-            <div class="copyright">
-                2025 Teas & Cs. All rights reserved.<br>
-                Designed, built & maintained by <a href="https://paul-banning.com" target="_blank" rel="noopener noreferrer">Paul Banning</a>
-            </div>
+            <!-- Footer Component -->
+            <div class="footer-placeholder"></div>
         </div>
 
         <!-- Specialties Page -->
@@ -1783,10 +1816,8 @@
                     </div>
                 </div>
             </div>
-            <div class="copyright">
-                2025 Teas & Cs. All rights reserved.<br>
-                Designed, built & maintained by <a href="https://paul-banning.com" target="_blank" rel="noopener noreferrer">Paul Banning</a>
-            </div>
+            <!-- Footer Component -->
+            <div class="footer-placeholder"></div>
         </div>
 
         <!-- Customize Modal -->
@@ -1876,10 +1907,8 @@
 
                 <button class="back-home-btn" onclick="goToMainMenu()">Back to Menu</button>
             </div>
-            <div class="copyright">
-                2025 Teas & Cs. All rights reserved.<br>
-                Designed, built & maintained by <a href="https://paul-banning.com" target="_blank" rel="noopener noreferrer">Paul Banning</a>
-            </div>
+            <!-- Footer Component -->
+            <div class="footer-placeholder"></div>
         </div>
 
         <!-- Shopping Basket Page -->
@@ -1932,10 +1961,8 @@
                     </div>
                 </div>
             </div>
-            <div class="copyright">
-                2025 Teas & Cs. All rights reserved.<br>
-                Designed, built & maintained by <a href="https://paul-banning.com" target="_blank" rel="noopener noreferrer">Paul Banning</a>
-            </div>
+            <!-- Footer Component -->
+            <div class="footer-placeholder"></div>
         </div>
 
         <!-- Cart Summary -->
@@ -2865,6 +2892,194 @@
                     });
             });
         }
+
+        // Load footer component
+        function loadFooterComponent() {
+            fetch('footer-component.html')
+                .then(response => response.text())
+                .then(html => {
+                    // Replace all footer placeholders with the component
+                    const placeholders = document.querySelectorAll('#footer-placeholder, .footer-placeholder');
+                    placeholders.forEach(placeholder => {
+                        placeholder.outerHTML = html;
+                    });
+                })
+                .catch(error => {
+                    console.error('Error loading footer component:', error);
+                });
+        }
+
+        // Load footer when DOM is ready
+        document.addEventListener('DOMContentLoaded', loadFooterComponent);
+
+        // Liquid Glass Effect for Headers
+        function initLiquidGlassEffect() {
+            const headers = document.querySelectorAll('.header');
+            let autoEffectInterval;
+            let isUserInteracting = false;
+            
+            // Function to create automatic liquid effect
+            function createAutomaticEffect(header) {
+                if (isUserInteracting) return; // Don't interfere with user interaction
+                
+                const rect = header.getBoundingClientRect();
+                const centerX = 50;
+                const centerY = 50;
+                
+                // Create random movement pattern
+                const randomX = centerX + (Math.random() - 0.5) * 60; // ±30% from center
+                const randomY = centerY + (Math.random() - 0.5) * 40; // ±20% from center
+                
+                // Smooth animation to random position
+                animateToPosition(header, randomX, randomY, 2000);
+                
+                // After reaching position, animate back to center
+                setTimeout(() => {
+                    if (!isUserInteracting) {
+                        animateToPosition(header, centerX, centerY, 1500);
+                    }
+                }, 2000);
+            }
+            
+            // Function to smoothly animate to a position
+            function animateToPosition(header, targetX, targetY, duration) {
+                const startX = parseFloat(header.style.getPropertyValue('--mouse-x') || '50%');
+                const startY = parseFloat(header.style.getPropertyValue('--mouse-y') || '50%');
+                const startTime = performance.now();
+                
+                function animate(currentTime) {
+                    const elapsed = currentTime - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+                    
+                    // Easing function for smooth animation
+                    const easeProgress = 1 - Math.pow(1 - progress, 3);
+                    
+                    const currentX = startX + (targetX - startX) * easeProgress;
+                    const currentY = startY + (targetY - startY) * easeProgress;
+                    
+                    header.style.setProperty('--mouse-x', currentX + '%');
+                    header.style.setProperty('--mouse-y', currentY + '%');
+                    
+                    if (progress < 1) {
+                        requestAnimationFrame(animate);
+                    }
+                }
+                
+                requestAnimationFrame(animate);
+            }
+            
+            // Start automatic effect interval
+            function startAutomaticEffect() {
+                autoEffectInterval = setInterval(() => {
+                    headers.forEach(header => {
+                        if (header.offsetParent !== null) { // Only if header is visible
+                            createAutomaticEffect(header);
+                        }
+                    });
+                }, Math.random() * 2000 + 4000); // Random interval between 4-6 seconds
+            }
+            
+            headers.forEach(header => {
+                // Mouse move tracking
+                header.addEventListener('mousemove', (e) => {
+                    isUserInteracting = true;
+                    const rect = header.getBoundingClientRect();
+                    const x = ((e.clientX - rect.left) / rect.width) * 100;
+                    const y = ((e.clientY - rect.top) / rect.height) * 100;
+                    
+                    header.style.setProperty('--mouse-x', x + '%');
+                    header.style.setProperty('--mouse-y', y + '%');
+                    
+                    // Add dynamic blur based on movement speed
+                    const speed = Math.sqrt(Math.pow(e.movementX, 2) + Math.pow(e.movementY, 2));
+                    const blurIntensity = Math.min(speed * 0.5, 10);
+                    header.style.setProperty('--blur-intensity', blurIntensity + 'px');
+                });
+
+                // Touch move tracking for mobile
+                header.addEventListener('touchmove', (e) => {
+                    isUserInteracting = true;
+                    e.preventDefault();
+                    const touch = e.touches[0];
+                    const rect = header.getBoundingClientRect();
+                    const x = ((touch.clientX - rect.left) / rect.width) * 100;
+                    const y = ((touch.clientY - rect.top) / rect.height) * 100;
+                    
+                    header.style.setProperty('--mouse-x', x + '%');
+                    header.style.setProperty('--mouse-y', y + '%');
+                });
+
+                // Reset effect when mouse leaves
+                header.addEventListener('mouseleave', () => {
+                    isUserInteracting = false;
+                    header.style.setProperty('--mouse-x', '50%');
+                    header.style.setProperty('--mouse-y', '50%');
+                    header.style.setProperty('--blur-intensity', '0px');
+                });
+
+                // Add liquid ripple effect on click/tap
+                header.addEventListener('click', (e) => {
+                    isUserInteracting = true;
+                    const rect = header.getBoundingClientRect();
+                    const x = ((e.clientX - rect.left) / rect.width) * 100;
+                    const y = ((e.clientY - rect.top) / rect.height) * 100;
+                    
+                    // Create ripple element
+                    const ripple = document.createElement('div');
+                    ripple.style.cssText = `
+                        position: absolute;
+                        left: ${x}%;
+                        top: ${y}%;
+                        width: 0;
+                        height: 0;
+                        background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+                        border-radius: 50%;
+                        transform: translate(-50%, -50%);
+                        animation: rippleExpand 0.6s ease-out;
+                        pointer-events: none;
+                        z-index: 1;
+                    `;
+                    
+                    header.appendChild(ripple);
+                    
+                    // Remove ripple after animation
+                    setTimeout(() => {
+                        if (ripple.parentNode) {
+                            ripple.parentNode.removeChild(ripple);
+                        }
+                    }, 600);
+                    
+                    // Reset interaction flag after a delay
+                    setTimeout(() => {
+                        isUserInteracting = false;
+                    }, 1000);
+                });
+            });
+            
+            // Start the automatic effect
+            startAutomaticEffect();
+        }
+
+        // Add ripple animation keyframes
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes rippleExpand {
+                0% {
+                    width: 0;
+                    height: 0;
+                    opacity: 1;
+                }
+                100% {
+                    width: 200px;
+                    height: 200px;
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Initialize liquid glass effect when DOM is ready
+        document.addEventListener('DOMContentLoaded', initLiquidGlassEffect);
     </script>
 </body>
 </html>
