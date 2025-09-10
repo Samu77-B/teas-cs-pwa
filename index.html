@@ -59,6 +59,21 @@
             top: 0;
             z-index: 100;
             animation: slideDownFromTop 0.8s ease-out;
+            transition: all 0.3s ease;
+        }
+
+        .header.scrolled {
+            padding: 15px 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header.scrolled .header-title {
+            font-size: 1.2rem;
+        }
+
+        .header.scrolled .header-subtitle {
+            font-size: 0.8rem;
+            opacity: 0.8;
         }
 
         .minimal-header {
@@ -1377,7 +1392,7 @@
             </div>
         </div>
 
-        <!-- Hot Drinks Page -->
+        <!-- Hot Drinks Page --> 
         <div class="page" id="hot-drinks">
             <div class="menu-section">
                 <h2 class="section-title">Hot Drinks</h2>
@@ -1985,6 +2000,18 @@
         let currentPage = 'mainMenu';
         let cart = [];
         let currentItem = null;
+
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('.header');
+            if (header) {
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            }
+        });
         
         // EmailJS Configuration - Official format from documentation
         console.log('Initializing EmailJS with key: 0-zOlPcY__7KuMFMa');
