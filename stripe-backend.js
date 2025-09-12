@@ -10,7 +10,16 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 // Middleware
-app.use(cors());
+app.use(cors({
+    origin: [
+        'https://ordering.teasandcs.com',
+        'https://order.teasandcs.com', 
+        'https://teasandcs.com',
+        'http://localhost:3000', // For development
+        'http://localhost:8080'  // For development
+    ],
+    credentials: true
+}));
 app.use(express.json());
 
 // Create PaymentIntent endpoint
