@@ -3,7 +3,7 @@
 // Run with: node stripe-backend.js
 
 const express = require('express');
-const stripe = require('stripe')('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');
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY || 'sk_test_your_secret_key_here');
 const cors = require('cors');
 
 const app = express();

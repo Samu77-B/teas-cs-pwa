@@ -18,11 +18,13 @@ Replace the test key in `index.html` line 3554:
 
 ```javascript
 // Replace this line:
-this.stripe = Stripe('pk_test_51234567890abcdefghijklmnopqrstuvwxyz');
+this.stripe = Stripe('pk_test_your_publishable_key_here');
 
 // With your actual publishable key:
-this.stripe = Stripe('pk_test_your_actual_publishable_key_here');
+this.stripe = Stripe('pk_live_your_actual_publishable_key_here');
 ```
+
+**⚠️ SECURITY WARNING**: Never commit your actual keys to GitHub! Use environment variables or config files.
 
 ### 3. Set Up Backend Server
 
