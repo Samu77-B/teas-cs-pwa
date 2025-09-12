@@ -152,6 +152,57 @@
             z-index: 2;
         }
 
+        /* Enhanced Button Feedback Styles */
+        button, .menu-item, .list-item, .basket-item {
+            transition: all 0.1s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        button:active, .menu-item:active, .list-item:active, .basket-item:active {
+            transform: scale(0.95);
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        /* Ripple effect for buttons */
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(0);
+            animation: ripple-animation 0.6s linear;
+            pointer-events: none;
+        }
+
+        @keyframes ripple-animation {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        /* Success button feedback */
+        .success-feedback {
+            animation: success-pulse 0.3s ease;
+        }
+
+        @keyframes success-pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); background-color: #4CAF50; }
+            100% { transform: scale(1); }
+        }
+
+        /* Error button feedback */
+        .error-feedback {
+            animation: error-shake 0.5s ease;
+        }
+
+        @keyframes error-shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
         .minimal-back-btn {
             position: static;
             background: #FF8C42;
@@ -3080,6 +3131,234 @@
 
         // Initialize liquid glass effect when DOM is ready
         document.addEventListener('DOMContentLoaded', initLiquidGlassEffect);
+
+        // Haptic and Audio Feedback System
+        class FeedbackSystem {
+            constructor() {
+                this.audioContext = null;
+                this.sounds = {};
+                this.isAudioEnabled = true;
+                this.isHapticEnabled = true;
+                this.initAudio();
+            }
+
+            initAudio() {
+                try {
+                    // Create audio context for generating sounds
+                    this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    this.createSounds();
+                } catch (error) {
+                    console.log('Audio not supported:', error);
+                    this.isAudioEnabled = false;
+                }
+            }
+
+            createSounds() {
+                // Create different types of button sounds
+                this.sounds = {
+                    click: this.createTone(800, 0.1, 'sine'),
+                    tap: this.createTone(600, 0.08, 'square'),
+                    success: this.createTone(1000, 0.2, 'sine'),
+                    error: this.createTone(300, 0.3, 'sawtooth')
+                };
+            }
+
+            createTone(frequency, duration, type = 'sine') {
+                return () => {
+                    if (!this.audioContext || !this.isAudioEnabled) return;
+                    
+                    const oscillator = this.audioContext.createOscillator();
+                    const gainNode = this.audioContext.createGain();
+                    
+                    oscillator.connect(gainNode);
+                    gainNode.connect(this.audioContext.destination);
+                    
+                    oscillator.frequency.setValueAtTime(frequency, this.audioContext.currentTime);
+                    oscillator.type = type;
+                    
+                    gainNode.gain.setValueAtTime(0.1, this.audioContext.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, this.audioContext.currentTime + duration);
+                    
+                    oscillator.start(this.audioContext.currentTime);
+                    oscillator.stop(this.audioContext.currentTime + duration);
+                };
+            }
+
+            // Haptic feedback using Vibration API
+            vibrate(pattern = [50]) {
+                if (!this.isHapticEnabled) return;
+                
+                if ('vibrate' in navigator) {
+                    try {
+                        navigator.vibrate(pattern);
+                    } catch (error) {
+                        console.log('Vibration not supported:', error);
+                    }
+                }
+            }
+
+            // Combined feedback for different button types
+            buttonClick(type = 'click') {
+                this.playSound(type);
+                this.vibrate([30]);
+            }
+
+            buttonTap(type = 'tap') {
+                this.playSound(type);
+                this.vibrate([20]);
+            }
+
+            successFeedback() {
+                this.playSound('success');
+                this.vibrate([50, 50, 50]);
+            }
+
+            errorFeedback() {
+                this.playSound('error');
+                this.vibrate([100, 50, 100]);
+            }
+
+            playSound(type) {
+                if (this.sounds[type] && this.isAudioEnabled) {
+                    this.sounds[type]();
+                }
+            }
+
+            // Enable/disable feedback
+            toggleAudio() {
+                this.isAudioEnabled = !this.isAudioEnabled;
+                return this.isAudioEnabled;
+            }
+
+            toggleHaptic() {
+                this.isHapticEnabled = !this.isHapticEnabled;
+                return this.isHapticEnabled;
+            }
+        }
+
+        // Initialize feedback system
+        const feedback = new FeedbackSystem();
+
+        // Enhanced button click handler with feedback
+        function addFeedbackToButtons() {
+            // Add feedback to all buttons and clickable elements
+            const buttons = document.querySelectorAll('button, .menu-item, .list-item, .basket-item');
+            
+            buttons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    // Create ripple effect
+                    createRipple(e, button);
+                    
+                    // Determine feedback type based on button class or content
+                    let feedbackType = 'click';
+                    
+                    if (button.classList.contains('menu-item') || button.classList.contains('list-item')) {
+                        feedbackType = 'tap';
+                    } else if (button.classList.contains('checkout-btn') || button.classList.contains('success')) {
+                        feedbackType = 'success';
+                    } else if (button.classList.contains('error') || button.classList.contains('cancel')) {
+                        feedbackType = 'error';
+                    }
+                    
+                    // Provide feedback
+                    if (feedbackType === 'success') {
+                        feedback.successFeedback();
+                        button.classList.add('success-feedback');
+                        setTimeout(() => button.classList.remove('success-feedback'), 300);
+                    } else if (feedbackType === 'error') {
+                        feedback.errorFeedback();
+                        button.classList.add('error-feedback');
+                        setTimeout(() => button.classList.remove('error-feedback'), 500);
+                    } else if (feedbackType === 'tap') {
+                        feedback.buttonTap();
+                    } else {
+                        feedback.buttonClick();
+                    }
+                });
+            });
+
+            // Add special feedback for quantity buttons
+            const quantityButtons = document.querySelectorAll('.quantity-btn, .add-btn, .remove-btn');
+            quantityButtons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    createRipple(e, button);
+                    feedback.buttonTap('tap');
+                });
+            });
+
+            // Add feedback for modal interactions
+            const modalButtons = document.querySelectorAll('.modal button, .modal .close');
+            modalButtons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    createRipple(e, button);
+                    feedback.buttonClick();
+                });
+            });
+        }
+
+        // Create ripple effect on button click
+        function createRipple(event, element) {
+            const ripple = document.createElement('span');
+            const rect = element.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            const x = event.clientX - rect.left - size / 2;
+            const y = event.clientY - rect.top - size / 2;
+            
+            ripple.style.width = ripple.style.height = size + 'px';
+            ripple.style.left = x + 'px';
+            ripple.style.top = y + 'px';
+            ripple.classList.add('ripple');
+            
+            element.appendChild(ripple);
+            
+            setTimeout(() => {
+                ripple.remove();
+            }, 600);
+        }
+
+        // Add feedback settings to the UI
+        function addFeedbackSettings() {
+            // Create a floating settings button
+            const settingsBtn = document.createElement('button');
+            settingsBtn.innerHTML = '🔊';
+            settingsBtn.style.cssText = `
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                background: #6B7A5A;
+                color: white;
+                border: none;
+                font-size: 20px;
+                cursor: pointer;
+                z-index: 1000;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+                transition: all 0.3s ease;
+            `;
+            
+            settingsBtn.addEventListener('click', () => {
+                const audioEnabled = feedback.toggleAudio();
+                const hapticEnabled = feedback.toggleHaptic();
+                
+                settingsBtn.innerHTML = audioEnabled ? '🔊' : '🔇';
+                settingsBtn.style.background = audioEnabled ? '#6B7A5A' : '#ccc';
+                
+                // Show feedback
+                if (audioEnabled || hapticEnabled) {
+                    feedback.successFeedback();
+                }
+            });
+            
+            document.body.appendChild(settingsBtn);
+        }
+
+        // Initialize feedback system when DOM is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            addFeedbackToButtons();
+            addFeedbackSettings();
+        });
     </script>
 </body>
 </html>
