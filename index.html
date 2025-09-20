@@ -29,6 +29,9 @@
     <!-- EmailJS Library - Official CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     
+    <!-- Configuration -->
+    <script src="config.js"></script>
+    
     <style>
         * {
             margin: 0;
@@ -3550,11 +3553,13 @@
         // Stripe Payment Integration
         class StripePayment {
             constructor() {
-                // Replace with your actual Stripe publishable key
-                this.stripe = Stripe('pk_test_your_publishable_key_here'); // Replace with your actual key
+                // Use Stripe key from config
+                const stripeKey = typeof CONFIG !== 'undefined' ? CONFIG.STRIPE_PUBLISHABLE_KEY : 'pk_test_your_publishable_key_here';
+                this.stripe = Stripe(stripeKey);
                 this.elements = null;
                 this.cardElement = null;
                 this.clientSecret = null;
+                this.paymentIntentId = null;
             }
 
             async initializePayment(amount) {
@@ -3602,7 +3607,8 @@
             async createPaymentIntent(amount) {
                 try {
                     // Call your backend server to create PaymentIntent
-                    const response = await fetch('http://localhost:3001/create-payment-intent', {
+                    const apiUrl = typeof CONFIG !== 'undefined' ? CONFIG.API_BASE_URL : 'http://localhost:3001';
+                    const response = await fetch(`${apiUrl}/create-payment-intent`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -3636,6 +3642,7 @@
                     this.showPaymentError(error.message);
                     return false;
                 } else if (paymentIntent.status === 'succeeded') {
+                    this.paymentIntentId = paymentIntent.id;
                     this.showPaymentSuccess();
                     return true;
                 }
@@ -3654,7 +3661,7 @@
                 this.setLoading(false);
             }
 
-            showPaymentSuccess() {
+            async showPaymentSuccess() {
                 const successElement = document.getElementById('paymentSuccess');
                 successElement.textContent = 'Payment successful! Your order has been placed.';
                 successElement.style.display = 'block';
@@ -3664,6 +3671,49 @@
                 
                 // Re-enable payment button
                 this.setLoading(false);
+                
+                // Send order to backend with chair number
+                await this.sendOrderToBackend();
+            }
+            
+            async sendOrderToBackend() {
+                try {
+                    const orderDetails = {
+                        items: cart.map(item => ({
+                            name: item.name,
+                            quantity: item.quantity,
+                            price: item.price,
+                            size: item.size,
+                            milk: item.milk,
+                            sweetener: item.sweetener
+                        })),
+                        total: cart.reduce((sum, item) => sum + item.price, 0),
+                        customerInfo: {
+                            email: document.getElementById('customerEmail')?.value?.trim() || '',
+                            name: document.getElementById('customerName')?.value?.trim() || ''
+                        },
+                        paymentIntentId: this.paymentIntentId,
+                        chairNumber: 'Chair ' + document.getElementById('chairNumber').textContent,
+                        message: document.getElementById('orderMessage')?.value?.trim() || ''
+                    };
+                    
+                    const apiUrl = typeof CONFIG !== 'undefined' ? CONFIG.API_BASE_URL : 'http://localhost:3001';
+                    const response = await fetch(`${apiUrl}/api/orders`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(orderDetails)
+                    });
+                    
+                    if (response.ok) {
+                        console.log('Order sent to backend successfully');
+                    } else {
+                        console.error('Failed to send order to backend');
+                    }
+                } catch (error) {
+                    console.error('Error sending order to backend:', error);
+                }
             }
 
             setLoading(loading) {

@@ -6,7 +6,7 @@ const CONFIG = {
     API_BASE_URL: 'http://localhost:3001', // Change to your Vercel URL in production
     
     // Stripe Configuration
-    STRIPE_PUBLISHABLE_KEY: 'pk_test_your_publishable_key_here', // Update with your Stripe key
+    STRIPE_PUBLISHABLE_KEY: 'pk_test_51S2tRgHi3ZrT6W1HNaJGNbcgHrYd0RTCkFIC9KGUZWE0shYjzUXM93TFTdwEwhLWBKbgpOjuVuKqNzllQL1VJW9M00ou8Z3fMC',
     
     // Admin Configuration
     ADMIN_TOKEN: 'admin-token-2024', // Change to secure token in production
