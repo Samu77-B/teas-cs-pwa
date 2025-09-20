@@ -2704,60 +2704,6 @@
             showBasket();
         }
 
-        function proceedToCheckout() {
-            if (cart.length === 0) return;
-            
-            triggerHapticFeedback();
-            
-            // Get the order message
-            const orderMessage = document.getElementById('orderMessage').value.trim();
-            
-            // Store order details for confirmation
-            const orderDetails = {
-                items: [...cart],
-                message: orderMessage,
-                total: cart.reduce((sum, item) => sum + item.price, 0),
-                timestamp: new Date().toLocaleString()
-            };
-            
-            // Send order notification email
-            sendOrderEmail(orderDetails);
-            
-            // In a real app, you would send this to your backend
-            console.log('Order submitted:', orderDetails);
-            
-            // Show order message in confirmation if provided
-            const messageDisplay = document.getElementById('orderMessageDisplay');
-            const messageText = document.getElementById('orderMessageText');
-            
-            if (orderMessage) {
-                messageDisplay.style.display = 'block';
-                messageText.textContent = orderMessage;
-            } else {
-                messageDisplay.style.display = 'none';
-            }
-            
-            // Show order confirmation
-            hideAllPages();
-            document.getElementById('orderConfirmation').classList.add('active');
-            
-            // Switch to minimal header with back button only
-            document.getElementById('mainHeader').style.display = 'none';
-            document.getElementById('minimalHeader').style.display = 'block';
-            document.getElementById('backBtn').style.display = 'none';
-            
-            // Show fixed home button
-            document.getElementById('fixedHomeBtn').style.display = 'flex';
-            
-            currentPage = 'orderConfirmation';
-            
-            // Clear cart after checkout
-            cart = [];
-            updateCartDisplay();
-            
-            // Clear the message field
-            document.getElementById('orderMessage').value = '';
-        }
 
         function continueShopping() {
             triggerHapticFeedback();
